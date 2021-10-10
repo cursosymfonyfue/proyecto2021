@@ -1,0 +1,56 @@
+version: '3.4'
+
+# csf = curso symfony fue
+services:
+
+    apache:
+        build: apache2/
+        container_name: csf_apache2
+        ports:
+            - '80:80'
+        volumes:
+            - ${PWD}/docker/apache2/vhosts:/etc/apache2/sites-enabled:delegated
+            - ${PWD}/:/var/www/html/:delegated
+        depends_on:
+            - php
+            - mariadb
+
+    php:
+        build: php/
+        container_name: csf_php
+        volumes:
+            - '${PWD}/:/var/www/html'
+        depends_on:
+            - mariadb
+
+    mariadb:
+        image: mariadb:10.4
+        container_name: csf_mariadb
+        volumes:
+            -  ${PWD}/docker/mariadb/migrations:/docker-entrypoint-initdb.d:delegated
+            -  ${PWD}/docker/mariadb/data/db:/var/lib/mysql:delegated
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: curso_symfony_fue
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: password
+        user: mysql
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: csf_phpmyadmin
+        environment:
+            PMA_HOST: mariadb
+            PMA_PORT: 3306
+        ports:
+            - '8080:80'
+        links:
+            - mariadb
+
+    mailhog:
+        image: mailhog/mailhog
+        logging:
+            driver: 'none'  # disable saving logs
+        ports:
+            - 1025:1025 # smtp server
+            - 8025:8025 # web ui
