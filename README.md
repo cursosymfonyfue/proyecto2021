@@ -11,7 +11,7 @@ docker-compose -f ./docker/docker-compose.yaml up
 ```
 
 Dentro del directorio dpcker/mariadb/migrations hay un dump de base de datos básico. 
-Este dump se ejecutará la primera vez que se construya en contenedor, generará la base de datos del proyecto y la de mariaDb con los usuarios y contraseñas correspondientes.
+Este dump se ejecutará la primera vez que se construya el contenedor, generará la base de datos del proyecto y la de mysql con los usuarios y contraseñas correspondientes.
 
 **Acceso a la web desde un navegador:**
 
