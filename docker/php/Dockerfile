@@ -1,29 +1,5 @@
 ##################################################################################################################
-FROM composer:2.0 as vendor
-
-WORKDIR /app
-
-COPY composer.json composer.json
-COPY composer.lock composer.lock
-
-RUN composer install  \
-    --ignore-platform-reqs \
-    --no-ansi \
-    --no-autoloader \
-    --no-dev \
-    --no-interaction \
-    --no-scripts
-
-COPY . .
-RUN composer dump-autoload
-##################################################################################################################
-
-
-##################################################################################################################
 FROM php:7.4-fpm
-
-RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
-	mv composer.phar /usr/local/bin/composer
 
 # Install PHPUnit
 RUN cd /tmp && curl https://phar.phpunit.de/phpunit.phar > phpunit.phar && \
