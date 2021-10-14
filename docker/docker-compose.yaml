@@ -9,8 +9,8 @@ services:
         ports:
             - '80:80'
         volumes:
-            - ${PWD}/docker/apache2/vhosts:/etc/apache2/sites-enabled:delegated
-            - ${PWD}/:/var/www/html/:delegated
+            - ./docker/apache2/vhosts:/etc/apache2/sites-enabled:delegated
+            - ./:/var/www/html:delegated
         depends_on:
             - php
             - mariadb
@@ -19,7 +19,7 @@ services:
         build: php/
         container_name: csf_php
         volumes:
-            - '${PWD}/:/var/www/html'
+            - ./:/var/www/html:delegated
         depends_on:
             - mariadb
 
@@ -27,8 +27,8 @@ services:
         image: mariadb:10.4
         container_name: csf_mariadb
         volumes:
-            -  ${PWD}/docker/mariadb/migrations:/docker-entrypoint-initdb.d:delegated
-            -  ${PWD}/docker/mariadb/data/db:/var/lib/mysql:delegated
+            -  ./docker/mariadb/migrations:/docker-entrypoint-initdb.d:delegated
+            -  ./docker/mariadb/data/db:/var/lib/mysql:delegated
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: curso_symfony_fue
