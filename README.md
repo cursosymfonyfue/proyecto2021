@@ -15,7 +15,7 @@ Este dump se ejecutará la primera vez que se construya el contenedor, generará
 
 **Acceso a la web desde un navegador:**
 
-http://localhost
+http://localhost:8000
 
 **Acceso a phpmyadmin (panel para gestionar la base de datos):**
 
@@ -31,6 +31,6 @@ ___
 
 Urls disponibles básicas:
 
-- http://localhost
-- http://localhost/hello-world
-- http://localhost/phpinfo.php
+- http://localhost:8000
+- http://localhost:8000/hello-world
+- http://localhost:8000/phpinfo.php
