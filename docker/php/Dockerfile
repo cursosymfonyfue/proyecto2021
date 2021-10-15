@@ -1,5 +1,5 @@
 ##################################################################################################################
-FROM php:7.4-fpm
+FROM php:7.4.23-fpm
 
 # Install PHPUnit
 RUN cd /tmp && curl https://phar.phpunit.de/phpunit.phar > phpunit.phar && \
