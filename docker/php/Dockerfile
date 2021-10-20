@@ -1,11 +1,20 @@
 ##################################################################################################################
 FROM php:7.4.23-fpm
 
+# Install Composer
+RUN cd /tmp && curl -sS https://getcomposer.org/installer > composer.phar && \
+    chmod +x /tmp/composer.phar && \
+    mv /tmp/composer.phar /usr/local/bin/composer
+
+# Install Symfony Command
+RUN cd /tmp && curl -sS https://get.symfony.com/cli/installer > symfony.phar && \
+    chmod +x symfony.phar && \
+    mv symfony.phar /usr/local/bin/symfony
+
 # Install PHPUnit
 RUN cd /tmp && curl https://phar.phpunit.de/phpunit.phar > phpunit.phar && \
     chmod +x phpunit.phar && \
     mv /tmp/phpunit.phar /usr/local/bin/phpunit
-
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
