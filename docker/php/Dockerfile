@@ -6,6 +6,10 @@ RUN cd /tmp && curl -sS https://getcomposer.org/installer > composer.phar && \
     chmod +x /tmp/composer.phar && \
     mv /tmp/composer.phar /usr/local/bin/composer
 
+RUN /usr/local/bin/php /usr/local/bin/composer && \
+    mv composer.phar /usr/local/bin/composer
+
+
 # Install Symfony Command
 RUN cd /tmp && curl -sS https://get.symfony.com/cli/installer > symfony.phar && \
     chmod +x symfony.phar && \
@@ -47,6 +51,8 @@ RUN chown www-data:www-data /var/www/html/var/log
 # Install composer from oficial image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+
 EXPOSE 9000
-CMD ["./docker/php/init.sh"]
+
+ENTRYPOINT ["sh", "./docker/php/init.sh"]
 ##################################################################################################################

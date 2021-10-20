@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-composer install
+php composer install
 php-fpm
