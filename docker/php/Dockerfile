@@ -35,6 +35,9 @@ RUN chown www-data:www-data /var/www/html
 RUN mkdir -p /var/www/html/var/log
 RUN chown www-data:www-data /var/www/html/var/log
 
+# Install composer from oficial image
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["./docker/php/init.sh"]
 ##################################################################################################################
