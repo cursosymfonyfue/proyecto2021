@@ -37,6 +37,7 @@ RUN chown www-data:www-data /var/www/html/var/log
 
 # Install composer from oficial image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN chmod +x ./docker/php/init.sh
 
 EXPOSE 9000
 CMD ["./docker/php/init.sh"]
