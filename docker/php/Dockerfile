@@ -15,10 +15,14 @@ RUN cd /tmp && curl -sS https://get.symfony.com/cli/installer > symfony.phar && 
     chmod +x symfony.phar && \
     mv symfony.phar /usr/local/bin/symfony
 
-# Install PHPUnit
+RUN cd /tmp && symfony && \
+    mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+
+# Install PHPUnit Globally
 RUN cd /tmp && curl https://phar.phpunit.de/phpunit.phar > phpunit.phar && \
     chmod +x phpunit.phar && \
     mv /tmp/phpunit.phar /usr/local/bin/phpunit
+
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
@@ -50,7 +54,6 @@ RUN chown www-data:www-data /var/www/html/var/log
 
 # Install composer from oficial image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN chmod +x ./docker/php/init.sh
 
 
 EXPOSE 9000

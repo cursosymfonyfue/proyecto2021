@@ -10,6 +10,26 @@ docker-compose -f ./docker/docker-compose.yaml build
 docker-compose -f ./docker/docker-compose.yaml up
 ```
 
+**Detener contenedores de docker:**
+```
+docker-compose -f ./docker/docker-compose.yaml down
+```
+
+**Acceder dentro del contenedor de php (donde están composer, symfony y php unit instalados)**
+```
+exec -it -u www-data csf_php bash
+```
+
+**Ejecutar comando composer update desde fuera del contenedor:**
+```
+exec -it -u www-data csf_php composer
+```
+
+**Ejecutar comando symfony desde fuera del contenedor:**
+```
+exec -it -u www-data csf_php symfony
+```
+
 Dentro del directorio dpcker/mariadb/migrations hay un dump de base de datos básico. 
 Este dump se ejecutará la primera vez que se construya el contenedor, generará la base de datos del proyecto y la de mysql con los usuarios y contraseñas correspondientes.
 
