@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "title": "Primer post!",
+      "user": "Miguel Carbonell",
+      "content": "Este es el primer post de nuestro blog",
+      "comments": [
+        {
+          "user": "Miguel Carbonell",
+          "content": "Y este es el primer comentario"
+        },
+        {
+          "user": "Test McTester",
+          "content": "Ahí va otro comentario"
+        }
+      ]
+    },
+    {
+      "title": "Curso Symfony",
+      "user": "Alumno atento",
+      "content": "Me está gustando mucho este curso",
+      "comments": [
+        {
+          "user": "Miguel Carbonell",
+          "content": "Obviamente"
+        },
+        {
+          "user": "Alumno menos atento",
+          "content": "A mí me está gustando menos"
+        }
+      ]
+    },
+    {
+      "title": "Post sin comentarios",
+      "user": "Administrador",
+      "content": "Este post no tiene comentarios (aún)",
+      "comments": [
+        {
+        }
+      ]
+    }
+  ]
+
+}
