@@ -1,0 +1,10 @@
+<h1>LISTADO DE PUBLICACIONES</h1>
+
+<a href="{{ url('admin_publicacion_add') }}">Añadir publicación</a>
+
+{% for publicacion in publicaciones %}
+    <h1>{{ publicacion.nombre }}</h1>
+    <p>{{ publiacion.descripcion }}</p>
+    <img src="{{ publicacion.imagen }}">
+    <hr>
+{% endfor %}

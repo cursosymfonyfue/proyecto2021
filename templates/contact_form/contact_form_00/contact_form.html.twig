@@ -1,0 +1,7 @@
+<!-- Si no indicamos nada, es verbo es POST por defecto y la action la misma página -->
+{{ form_start(form, {'attr': {'action': url('contact_form_00')}}) }}
+
+{{ form_widget(form) }}
+<input type="submit" value="Enviar">
+
+{{ form_end(form) }}

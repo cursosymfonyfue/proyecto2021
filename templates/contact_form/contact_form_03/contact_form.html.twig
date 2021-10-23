@@ -1,0 +1,23 @@
+<!-- La validación se hará en parte de cliente -->
+{#{{ form_start(form) }}#}
+
+<!-- Evitamos validación cliente. Ya validaremos en el siguiente caso de uso -->
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<!-- Aquí se mostrarían todos los errores que han ocurrido al formulario en general -->
+<span style="color:red">{{ form_errors(form) }}</span>
+
+<!-- Personalizamos el label, en la parte del front -->
+{{ form_label(form.first_name, 'First name*') }}
+<!-- Sólo mostrará los errores asociados a first_name -->
+{{ form_widget(form.first_name) }}
+<span style="color:red">{{ form_errors(form.first_name) }}</span>
+<br>
+
+{{ form_label(form.last_name, 'Last name') }}
+{{ form_widget(form.last_name) }}
+
+<br>
+
+<input type="submit" value="Enviar">
+{{ form_end(form) }}

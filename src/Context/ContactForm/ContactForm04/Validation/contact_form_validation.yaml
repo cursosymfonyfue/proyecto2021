@@ -1,0 +1,7 @@
+# Ver archivo validations de config/packages/validator.yaml
+# En config/packages/framework.yaml debe estar establecida esta línea: validation: { enabled: true }
+App\Context\ContactForm04\DTO\ContactFormDTO:
+    properties:
+        firstName:
+            - NotNull:
+                message: 'First name is required, sorry about that'
