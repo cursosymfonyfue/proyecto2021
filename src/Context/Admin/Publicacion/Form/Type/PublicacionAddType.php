@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PublicacionAddType extends AbstractType
@@ -33,16 +35,10 @@ final class PublicacionAddType extends AbstractType
         $builder->add('titulo', TextType::class);
         $builder->add('descripcion', TextareaType::class);
 
-        $estados = ['Activo' => 1, 'Inactivo' => 0];
-        $builder->add('estado', ChoiceType::class, ['choices' => $estados]);
-
+        $builder->add('estado', ChoiceType::class);
         $builder->add('dia_de_publicacion', TextType::class);
-
-        $meses = MesesResolver::resolve();
-        $builder->add('mes_de_publicacion', ChoiceType::class, ['choices' => $meses]);
-
-        $anyos = [(string)($anyo = date('Y')) => $anyo, (string)(++$anyo) => $anyo];
-        $builder->add('anyo_de_publicacion', ChoiceType::class, ['choices' => $anyos]);
+        $builder->add('mes_de_publicacion', ChoiceType::class);
+        $builder->add('anyo_de_publicacion', ChoiceType::class);
 
         $builder->add('imagen', FileType::class);
 
@@ -52,7 +48,31 @@ final class PublicacionAddType extends AbstractType
         // DATA TRANSFORMER
         $builder->get('id')->addModelTransformer($this->UUIDDataTransformer);
 
-        // @TODO => Añadir un EVENTO para inicializar los choices y que quede todo más limpio
+        // FORM EVENTS
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
+    }
+
+    public function onPreSetData(FormEvent $event)
+    {
+        $form = $event->getForm();
+
+        // Add años
+        $options = $form->get('anyo_de_publicacion')->getConfig()->getOptions();
+        $anyos = [(string)($anyo = date('Y')) => $anyo, (string)(++$anyo) => $anyo];
+        $options['choices'] = $anyos;
+        $form->add('anyo_de_publicacion', ChoiceType::class, $options);
+
+        // Add meses
+        $options = $form->get('mes_de_publicacion')->getConfig()->getOptions();
+        $meses = MesesResolver::resolve();
+        $options['choices'] = $meses;
+        $form->add('mes_de_publicacion', ChoiceType::class, $options);
+
+        // Add estado
+        $options = $form->get('estado')->getConfig()->getOptions();
+        $estados = ['Activo' => 1, 'Inactivo' => 0];
+        $options['choices'] = $estados;
+        $form->add('estado', ChoiceType::class, $options);
     }
 
     public function configureOptions(OptionsResolver $resolver)
