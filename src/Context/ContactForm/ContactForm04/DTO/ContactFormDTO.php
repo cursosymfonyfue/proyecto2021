@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\ContactForm04\DTO;
+namespace App\Context\ContactForm\ContactForm04\DTO;
 
 final class ContactFormDTO
 {

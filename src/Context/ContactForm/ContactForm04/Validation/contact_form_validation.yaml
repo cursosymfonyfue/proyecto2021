@@ -1,6 +1,6 @@
 # Ver archivo validations de config/packages/validator.yaml
 # En config/packages/framework.yaml debe estar establecida esta línea: validation: { enabled: true }
-App\Context\ContactForm04\DTO\ContactFormDTO:
+App\Context\ContactForm\ContactForm04\DTO\ContactFormDTO:
     properties:
         firstName:
             - NotNull:

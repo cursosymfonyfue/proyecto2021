@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\ContactForm03\Form\Type;
+namespace App\Context\ContactForm\ContactForm03\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

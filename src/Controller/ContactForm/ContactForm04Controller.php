@@ -2,8 +2,8 @@
 
 namespace App\Controller\ContactForm;
 
-use App\Context\ContactForm04\DTO\ContactFormDTO;
-use App\Context\ContactForm04\Form\Type\ContactFormType;
+use App\Context\ContactForm\ContactForm04\DTO\ContactFormDTO;
+use App\Context\ContactForm\ContactForm04\Form\Type\ContactFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

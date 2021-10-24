@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\ContactForm04\Form\Type;
+namespace App\Context\ContactForm\ContactForm04\Form\Type;
 
-use App\Context\ContactForm04\DTO\ContactFormDTO;
+use App\Context\ContactForm\ContactForm04\DTO\ContactFormDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;

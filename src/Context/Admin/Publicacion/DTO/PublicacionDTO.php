@@ -1,15 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publication\DTO;
+namespace App\Context\Admin\Publicacion\DTO;
 
-final class PublicationDTO
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\UuidV4;
+
+final class PublicacionDTO
 {
-    private string $id;
-    private string $nombre  = '';
-    private string $descripcion  = '';
-    private ?int $estado = null;
+    private UuidV4     $id;
+    private string     $nombre             = '';
+    private string     $descripcion        = '';
+    private ?int       $estado             = null;
     private ?\DateTime $fechaDePublicacion = null;
-    private string $imagen = '';
+    private string     $imagen             = '';
+
+    public function __construct()
+    {
+        // composer require symfony/uid
+        $this->id = Uuid::v4();
+    }
 
     public static function create(): self
     {

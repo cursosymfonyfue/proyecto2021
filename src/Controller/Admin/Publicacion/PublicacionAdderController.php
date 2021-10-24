@@ -2,9 +2,11 @@
 
 namespace App\Controller\Admin\Publicacion;
 
-use App\Context\Admin\Publication\DTO\PublicationDTO;
-use App\Context\Admin\Publication\PublicationAddType;
+use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\Form\Type\PublicacionAddType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /*
  * NOTAS: $builder->add es una interfaz fluida, esto es permite encadenar varios add: ->add(a)->add(b)->add(c) ....
@@ -16,15 +18,15 @@ use Symfony\Component\HttpFoundation\Request;
  *   - añadir custom validator descripción no contiene ningún e-mail (no debe hallarse el carácter @ en la descripción)
  */
 
-final class PublicacionAdderController
+final class PublicacionAdderController extends AbstractController
 {
     /**
      * @Route("/admin/publicacion/add", name="admin_publicacion_add")
      */
     public function __invoke(Request $request)
     {
-        $publicationDTO = PublicationDTO::create();
-        $form = $this->createForm(PublicationAddType::class, $publicationDTO);
+        $publicacionDTO = PublicacionDTO::create();
+        $form = $this->createForm(PublicacionAddType::class, $publicacionDTO);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -32,10 +34,10 @@ final class PublicacionAdderController
             return $this->redirectToRoute('publicacion_ok');
         }
 
-        return $this->render('contact_form/contact_form_04/contact_form.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/publicacion/adder.html.twig', ['form' => $form->createView()]);
     }
 
-    private function persist(PublicationDTO $publicationDTO) : void
+    private function persist(PublicacionDTO $publicationDTO) : void
     {
         if (!is_dir($dir = __DIR__ . '/../../../tmp')) {
             mkdir($dir, 0755);
