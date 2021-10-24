@@ -1,3 +1,75 @@
-<h1>NUEVA PUBLICACIÓN</h1>
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row pt-4">
+            <h4 style="margin-left:18px;">{% block titulo_seccion %}NUEVA PUBLICACIÓN{% endblock %}</h4>
+        </div>
+        <div class="row">
+            {{ form_errors(form) }}
+        </div>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'style': 'border: 1px grey solid; padding: 10px'}}) }}
 
-{{ form_widget(form) }}
+        <div class="row mt-2">
+            <div class="col-2">
+                <p>Título *</p>
+            </div>
+            <div class="col-10">
+                {{ form_widget(form.titulo) }}
+                {{ form_errors(form.titulo) }}
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2">
+                <p>Descripción *</p>
+            </div>
+            <div class="col-10">
+                {{ form_widget(form.descripcion, {'attr': {'style': 'width:50%; height: 100px'}}) }}
+                {{ form_errors(form.descripcion) }}
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2">
+                <p>Estado</p>
+            </div>
+            <div class="col-10">
+                {{ form_widget(form.estado) }}
+                {{ form_errors(form.estado) }}
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2">
+                <p>Fecha de Publicación</p>
+            </div>
+            <div class="col-10">
+                {{ form_widget(form.dia_de_publicacion, {'attr': {'style': 'width: 30px; height: 22px'}}) }} -
+                {{ form_widget(form.mes_de_publicacion) }} -
+                {{ form_widget(form.anyo_de_publicacion) }}
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-2">
+                <p>Imagen</p>
+            </div>
+            <div class="col-10">
+                {{ form_widget(form.imagen) }}
+            </div>
+        </div>
+
+        <div class="row mt-3">
+
+            <div class="col-2">
+               &nbsp;
+            </div>
+            <div class="col-10">
+                <input type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

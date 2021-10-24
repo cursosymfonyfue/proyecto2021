@@ -42,7 +42,7 @@ final class FechaDePublicacionDataMapper extends DataMapper implements DataMappe
         /** @var FormInterface[] $forms */
         $forms = iterator_to_array($forms);
 
-        $dateAsISOString = sprintf('%s-%s-%s',
+        $dateAsISOString = sprintf('%s-%s-%s 00:00:00',
             $forms['anyo_de_publicacion']->getData(),
             $forms['mes_de_publicacion']->getData(),
             $forms['dia_de_publicacion']->getData()

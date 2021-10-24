@@ -25,12 +25,25 @@ final class PublicacionDTO
         return new self();
     }
 
-    public function getId(): string
+    public static function createFromParams(array $params): self
+    {
+        $self  = new self();
+        $self->setId(Uuid::fromRfc4122($params['id']));
+        $self->setNombre($params['nombre']);
+        $self->setDescripcion($params['descripcion']);
+        $self->setFechaDePublicacion(new \DateTime($params['fecha_de_publicacion']));
+        $self->setEstado(null === $params['estado']?null:(int)$params['estado']);
+        $self->setImagen($params['imagen']);
+
+        return $self;
+    }
+
+    public function getId(): Uuid
     {
         return $this->id;
     }
 
-    public function setId(string $id): void
+    public function setId(Uuid $id): void
     {
         $this->id = $id;
     }

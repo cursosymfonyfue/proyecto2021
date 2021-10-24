@@ -35,7 +35,10 @@ final class PublicacionAddType extends AbstractType
         $builder->add('titulo', TextType::class);
         $builder->add('descripcion', TextareaType::class);
 
-        $builder->add('estado', ChoiceType::class);
+        // Ver línea 370 Symfony\Component\Form\Extension\Core\Type\ChoiceType para ver los parámetros admitidos
+        $estados = ['Activo' => 1, 'Inactivo' => 0];
+        $builder->add('estado', ChoiceType::class, ['choices' => $estados]);
+
         $builder->add('dia_de_publicacion', TextType::class);
         $builder->add('mes_de_publicacion', ChoiceType::class);
         $builder->add('anyo_de_publicacion', ChoiceType::class);
@@ -48,12 +51,26 @@ final class PublicacionAddType extends AbstractType
         // DATA TRANSFORMER
         $builder->get('id')->addModelTransformer($this->UUIDDataTransformer);
 
-        // FORM EVENTS
+        // LOS 5 FORM EVENTS
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function () {
+            echo "estoy en post-set-data <br>";
+        });
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function () {
+            echo "estoy en pre-submit <br>";
+        });
+        $builder->addEventListener(FormEvents::SUBMIT, function () {
+            echo "estoy en submit <br>";
+        });
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function () {
+            echo "estoy en post-submit <br>";
+        });
     }
 
     public function onPreSetData(FormEvent $event)
     {
+        echo "estoy en pre-set-data <br>";
+
         $form = $event->getForm();
 
         // Add años
@@ -67,12 +84,6 @@ final class PublicacionAddType extends AbstractType
         $meses = MesesResolver::resolve();
         $options['choices'] = $meses;
         $form->add('mes_de_publicacion', ChoiceType::class, $options);
-
-        // Add estado
-        $options = $form->get('estado')->getConfig()->getOptions();
-        $estados = ['Activo' => 1, 'Inactivo' => 0];
-        $options['choices'] = $estados;
-        $form->add('estado', ChoiceType::class, $options);
     }
 
     public function configureOptions(OptionsResolver $resolver)
