@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-final class PublicacionAddType extends AbstractType
+class PublicacionAddType extends AbstractType
 {
     private FechaDePublicacionDataMapper $fechaDePublicacionDataMapper;
     private UUIDDataTransformer          $UUIDDataTransformer;
@@ -32,7 +32,16 @@ final class PublicacionAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', HiddenType::class);
-        $builder->add('titulo', TextType::class);
+
+        // Es recomendable que todo lo referente a UX esté en el propio html
+        $builder->add('titulo', TextType::class, [
+            'attr' => [
+                'placeholder' => 'inserte aquí un título'
+            ],
+            'help' => '<span class="fa fa-info-circle mt-2"> escoja un título que resuma la publicación</span>',
+            'help_html' => true
+        ]);
+
         $builder->add('descripcion', TextareaType::class);
 
         // Ver línea 370 Symfony\Component\Form\Extension\Core\Type\ChoiceType para ver los parámetros admitidos
@@ -43,7 +52,8 @@ final class PublicacionAddType extends AbstractType
         $builder->add('mes_de_publicacion', ChoiceType::class);
         $builder->add('anyo_de_publicacion', ChoiceType::class);
 
-        $builder->add('imagen', FileType::class);
+        $builder->add('imagen', HiddenType::class);
+        $builder->add('imagen_file', FileType::class, ['mapped' => false]);
 
         // DATA MAPPER
         $builder->setDataMapper($this->fechaDePublicacionDataMapper);

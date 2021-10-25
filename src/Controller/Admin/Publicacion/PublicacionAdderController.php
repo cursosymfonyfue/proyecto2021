@@ -6,6 +6,7 @@ use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
 use App\Context\Admin\Publicacion\Email\EmailSender;
 use App\Context\Admin\Publicacion\Form\Type\PublicacionAddType;
 use App\Context\Admin\Publicacion\Repository\PublicacionesPersister;
+use App\Context\Admin\Publicacion\Uploader\ImagenUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,14 +26,17 @@ final class PublicacionAdderController extends AbstractController
     private PublicacionesPersister $publicacionesPersister;
     private EmailSender            $emailSender;
     private string                 $kernelProjectDir;
+    private ImagenUploader         $imagenUploader;
 
     public function __construct(PublicacionesPersister $publicacionesPersister,
                                 EmailSender            $emailSender,
-                                string                 $kernelProjectDir)
+                                string                 $kernelProjectDir,
+                                ImagenUploader         $imagenUploader)
     {
         $this->publicacionesPersister = $publicacionesPersister;
         $this->emailSender = $emailSender;
         $this->kernelProjectDir = $kernelProjectDir;
+        $this->imagenUploader = $imagenUploader;
     }
 
     /**
@@ -49,10 +53,12 @@ final class PublicacionAdderController extends AbstractController
         $form->handleRequest($request);
         echo "estoy en tras gestionar la request <br>";
 
+        // Aquí hay parte que estaría mejor encapsularla en un Handler => "S" de SOLID al poder!
         if ($form->isSubmitted() && $form->isValid()) {
             $publicacionDTO = $form->getData();
 
             $this->publicacionesPersister->persist($publicacionDTO);
+            $this->imagenUploader->upload($form['imagen_file']->getData(), $publicacionDTO);
             $this->emailSender->enviaEmailNuevaPublicacionCreada($publicacionDTO);
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');

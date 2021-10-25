@@ -4,9 +4,10 @@ namespace App\Controller\Admin\Publicacion;
 
 use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
 use App\Context\Admin\Publicacion\Email\EmailSender;
-use App\Context\Admin\Publicacion\Form\Type\PublicacionAddType;
+use App\Context\Admin\Publicacion\Form\Type\PublicacionEditType;
 use App\Context\Admin\Publicacion\Repository\PublicacionesFinder;
 use App\Context\Admin\Publicacion\Repository\PublicacionesPersister;
+use App\Context\Admin\Publicacion\Uploader\ImagenUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,14 +17,17 @@ final class PublicacionEditerController extends AbstractController
     private PublicacionesFinder    $publicacionesFinder;
     private PublicacionesPersister $publicacionesPersister;
     private EmailSender            $emailSender;
+    private ImagenUploader         $imagenUploader;
 
     public function __construct(PublicacionesFinder    $publicacionesFinder,
                                 PublicacionesPersister $publicacionesPersister,
-                                EmailSender            $emailSender)
+                                EmailSender            $emailSender,
+                                ImagenUploader         $imagenUploader)
     {
         $this->publicacionesFinder = $publicacionesFinder;
         $this->publicacionesPersister = $publicacionesPersister;
         $this->emailSender = $emailSender;
+        $this->imagenUploader = $imagenUploader;
     }
 
     /**
@@ -34,13 +38,15 @@ final class PublicacionEditerController extends AbstractController
         $publicacion = $this->publicacionesFinder->findById($id);
         $publicacionDTO = PublicacionDTO::createFromParams($publicacion);
 
-        $form = $this->createForm(PublicacionAddType::class, $publicacionDTO);
+        $form = $this->createForm(PublicacionEditType::class, $publicacionDTO);
         $form->handleRequest($request);
 
+        // Aquí hay parte que estaría mejor encapsularla en un Handler => "S" de SOLID al poder!
         if ($form->isSubmitted() && $form->isValid()) {
             $publicacionDTO = $form->getData();
 
             $this->publicacionesPersister->persist($publicacionDTO);
+            $this->imagenUploader->upload($form['imagen_file']->getData(), $publicacionDTO);
             $this->emailSender->enviaEmailPublicacionModificada($publicacionDTO);
 
             $this->addFlash('success', 'Publicación editada satisfactoriamente');

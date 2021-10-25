@@ -4,6 +4,13 @@
         <div class="row pt-4">
             <h4 style="margin-left:18px;">{% block titulo_seccion %}NUEVA PUBLICACIÓN{% endblock %}</h4>
         </div>
+        {% if (form.vars.alerta is defined) %}
+            <div class="row">
+                <div class="col w-100 alert alert-danger">
+                    {{ form.vars.alerta | raw }}
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
             {{ form_errors(form) }}
         </div>
@@ -16,6 +23,7 @@
             <div class="col-10">
                 {{ form_widget(form.titulo) }}
                 {{ form_errors(form.titulo) }}
+                {{ form_help(form.titulo) }}
             </div>
         </div>
 
@@ -26,6 +34,7 @@
             <div class="col-10">
                 {{ form_widget(form.descripcion, {'attr': {'style': 'width:50%; height: 100px'}}) }}
                 {{ form_errors(form.descripcion) }}
+                <p class="help-text mt-2"><span class="fa fa-info-circle mt-2"> indique aquí el cuerpo de la publicación</span></p>
             </div>
         </div>
 
@@ -55,17 +64,21 @@
                 <p>Imagen</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.imagen) }}
+                {{ form_widget(form.imagen_file) }}
             </div>
         </div>
 
         <div class="row mt-3">
 
             <div class="col-2">
-               &nbsp;
+                &nbsp;
             </div>
-            <div class="col-10">
+            <div class="col-8">
                 <input type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+
+            <div class="col-2">
+                &nbsp;<a href="{{ path('admin_publication_index') }}">Cancelar</a>
             </div>
 
         </div>
