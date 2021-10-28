@@ -41,7 +41,7 @@ http://localhost:8000
 
 http://localhost:8080
 
-Usuario/Clave: root/root
+Usuario/Clave: admin/password
 
 **Acceso a e-mails enviados en modo local:**
 
