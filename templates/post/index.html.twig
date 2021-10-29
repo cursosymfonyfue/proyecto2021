@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid px-5">
+        <div class="row">
+            <div class="col-12 pt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Autor: {{ post.user.username }}</h6>
+                        <p class="card-text">{{ post.body }}</p>
+                    </div>
+                </div>
+            </div>
+            {% for comment in post.comments %}
+                <div class="col-12 pt-2">
+                    <div class="card bg-gradient">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-info">{{ comment.user.username }}</h6>
+                            <p class="card-text">{{ comment.text }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
