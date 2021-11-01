@@ -16,14 +16,11 @@ final class ImagenUploader
 
     public function upload(?UploadedFile $imagen, PublicacionDTO $publicacionDTO): void
     {
-        if (null === $imagen) {
+        if (empty($publicacionDTO->getImagen())) {
             return;
         }
-        // $originalFilename = pathinfo($imagen->getClientOriginalName(), PATHINFO_FILENAME);
 
-        $destination = $this->resolveUploadPath();
-        $newFilename = $publicacionDTO->getId() . '.' . $imagen->guessExtension();
-        $imagen->move($destination, $newFilename);
+        $imagen->move($this->resolveUploadPath(), $publicacionDTO->getImagen());
     }
 
     private function resolveUploadPath(): string

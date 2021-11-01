@@ -3,7 +3,7 @@
 namespace App\Context\Admin\Publicacion\Form\Type;
 
 use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
-use App\Context\Admin\Publicacion\Form\DataMapper\FechaDePublicacionDataMapper;
+use App\Context\Admin\Publicacion\Form\DataMapper\PublicacionDataMapper;
 use App\Context\Admin\Publicacion\Form\DataTransformer\UUIDDataTransformer;
 use App\Context\Admin\Publicacion\Resolver\MesesResolver;
 use Symfony\Component\Form\AbstractType;
@@ -19,13 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PublicacionAddType extends AbstractType
 {
-    private FechaDePublicacionDataMapper $fechaDePublicacionDataMapper;
-    private UUIDDataTransformer          $UUIDDataTransformer;
+    private PublicacionDataMapper $publicacionDataMapper;
+    private UUIDDataTransformer   $UUIDDataTransformer;
 
-    public function __construct(FechaDePublicacionDataMapper $fechaDePublicacionDataMapper,
-                                UUIDDataTransformer          $UUIDDataTransformer)
+    public function __construct(PublicacionDataMapper $publicacionDataMapper,
+                                UUIDDataTransformer   $UUIDDataTransformer)
     {
-        $this->fechaDePublicacionDataMapper = $fechaDePublicacionDataMapper;
+        $this->publicacionDataMapper = $publicacionDataMapper;
         $this->UUIDDataTransformer = $UUIDDataTransformer;
     }
 
@@ -36,10 +36,10 @@ class PublicacionAddType extends AbstractType
         // Es recomendable que todo lo referente a UX esté en el propio html
         $builder->add('titulo', TextType::class, [
             'attr' => [
-                'placeholder' => 'inserte aquí un título'
+                'placeholder' => 'inserte aquí un título',
             ],
             'help' => '<span class="fa fa-info-circle mt-2"> escoja un título que resuma la publicación</span>',
-            'help_html' => true
+            'help_html' => true,
         ]);
 
         $builder->add('descripcion', TextareaType::class);
@@ -56,7 +56,7 @@ class PublicacionAddType extends AbstractType
         $builder->add('imagen_file', FileType::class, ['mapped' => false]);
 
         // DATA MAPPER
-        $builder->setDataMapper($this->fechaDePublicacionDataMapper);
+        $builder->setDataMapper($this->publicacionDataMapper);
 
         // DATA TRANSFORMER
         $builder->get('id')->addModelTransformer($this->UUIDDataTransformer);

@@ -27,6 +27,6 @@ final class UUIDDataTransformer implements DataTransformerInterface
             return null;
         }
 
-        return Uuid::fromRfc4122($value);
+        return UuidV4::fromRfc4122($value);
     }
 }
