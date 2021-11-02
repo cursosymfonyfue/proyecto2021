@@ -40,6 +40,6 @@ final class ContactForm04Controller extends AbstractController
             'last_name' => $contactFormDTO->getLastName(),
         ];
 
-        file_put_contents($dir . '/database.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
+        file_put_contents($dir . '/contact_form_sf.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
     }
 }

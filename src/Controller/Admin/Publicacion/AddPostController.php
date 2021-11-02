@@ -2,11 +2,11 @@
 
 namespace App\Controller\Admin\Publicacion;
 
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use App\Context\Admin\Publicacion\Email\EmailSender;
 use App\Context\Admin\Publicacion\Form\Type\PublicacionAddType;
-use App\Context\Admin\Publicacion\TextRepository\PublicacionesPersister;
 use App\Context\Admin\Publicacion\Resolver\NombreDeImagenResolver;
+use App\Context\Admin\Publicacion\TextRepository\PostPersister;
 use App\Context\Admin\Publicacion\Uploader\ImagenUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,33 +22,33 @@ use Symfony\Component\Routing\Annotation\Route;
  *   - añadir custom validator descripción no contiene ningún e-mail (no debe hallarse el carácter @ en la descripción)
  */
 
-final class PublicacionAdderController extends AbstractController
+final class AddPostController extends AbstractController
 {
-    private PublicacionesPersister $publicacionesPersister;
+    private PostPersister $postPersister;
     private EmailSender            $emailSender;
     private string                 $kernelProjectDir;
     private ImagenUploader         $imagenUploader;
 
-    public function __construct(PublicacionesPersister $publicacionesPersister,
+    public function __construct(PostPersister $postPersister,
                                 EmailSender            $emailSender,
                                 string                 $kernelProjectDir,
                                 ImagenUploader         $imagenUploader)
     {
-        $this->publicacionesPersister = $publicacionesPersister;
+        $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
         $this->kernelProjectDir = $kernelProjectDir;
         $this->imagenUploader = $imagenUploader;
     }
 
     /**
-     * @Route("/admin/publicacion/add", name="admin_publicacion_add")
+     * @Route("/admin/post/add", name="admin_post_add")
      */
     public function __invoke(Request $request)
     {
-        $publicacionDTO = PublicacionDTO::create();
+        $postDTO = PostDTO::create();
 
         echo "estoy en antes de crear formulario <br>";
-        $form = $this->createForm(PublicacionAddType::class, $publicacionDTO);
+        $form = $this->createForm(PublicacionAddType::class, $postDTO);
         echo "estoy en tras crear formulario <br>";
 
         $form->handleRequest($request);
@@ -56,16 +56,16 @@ final class PublicacionAdderController extends AbstractController
 
         // Aquí hay parte que estaría mejor encapsularla en un Handler => "S" de SOLID al poder!
         if ($form->isSubmitted() && $form->isValid()) {
-            $publicacionDTO = $form->getData();
+            $postDTO = $form->getData();
 
-            $this->publicacionesPersister->persist($publicacionDTO);
-            $this->imagenUploader->upload($form['imagen_file']->getData(), $publicacionDTO);
-            $this->emailSender->enviaEmailNuevaPublicacionCreada($publicacionDTO);
+            $this->postPersister->persist($postDTO);
+            $this->imagenUploader->upload($form['image_file']->getData(), $postDTO);
+            $this->emailSender->sendNewPostEMail($postDTO);
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');
-            return $this->redirectToRoute('admin_publication_index');
+            return $this->redirectToRoute('admin_post_index');
         }
 
-        return $this->render('admin/publicacion/adder.html.twig', ['form' => $form->createView()]);
+        return $this->render('admin/post/add.html.twig', ['form' => $form->createView()]);
     }
 }

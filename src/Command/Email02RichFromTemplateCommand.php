@@ -3,12 +3,13 @@
 namespace App\Command;
 
 use App\Command\Base\ModelBuilderTrait;
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 // bin/console csf:email-02
 final class Email02RichFromTemplateCommand extends Command
@@ -26,21 +27,21 @@ final class Email02RichFromTemplateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $publicacionDTO = self::buildDTO();
+        $postDTO = self::buildDTO();
 
-        $this->send($publicacionDTO);
+        $this->send($postDTO);
     }
 
-    public function send(PublicacionDTO $publicacionDTO): void
+    public function send(PostDTO $postDTO): void
     {
-        $context = ['publicacion' => $publicacionDTO];
+        $context = ['publicacion' => $postDTO];
 
         $email = (new TemplatedEmail())
-            ->from(new NamedAddress('no-reply@myproject.ext', 'My Project'))
+            ->from(new Address('no-reply@myproject.ext', 'My Project'))
             ->to('admin@myproject.ext')
             ->subject('publicación modificada')
             ->context($context)
-            ->htmlTemplate('notification/email-02.html.twig');
+            ->htmlTemplate('notification/email_notification.html.twig');
 
         $this->mailer->send($email);
     }

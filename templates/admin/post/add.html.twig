@@ -22,9 +22,9 @@
                 <p>Título *</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.nombre) }}
-                {{ form_errors(form.nombre) }}
-                {{ form_help(form.nombre) }}
+                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
+                {{ form_help(form.title) }}
             </div>
         </div>
 
@@ -33,8 +33,8 @@
                 <p>Descripción *</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.descripcion, {'attr': {'style': 'width:50%; height: 100px'}}) }}
-                {{ form_errors(form.descripcion) }}
+                {{ form_widget(form.body, {'attr': {'style': 'width:50%; height: 100px'}}) }}
+                {{ form_errors(form.body) }}
                 <p class="help-text mt-2"><span class="fa fa-info-circle mt-2"> indique aquí el cuerpo de la publicación</span></p>
             </div>
         </div>
@@ -44,8 +44,8 @@
                 <p>Estado</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.estado) }}
-                {{ form_errors(form.estado) }}
+                {{ form_widget(form.state) }}
+                {{ form_errors(form.state) }}
             </div>
         </div>
 
@@ -54,9 +54,9 @@
                 <p>Fecha de Publicación</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.dia_de_publicacion, {'attr': {'style': 'width: 30px; height: 22px'}}) }} -
-                {{ form_widget(form.mes_de_publicacion) }} -
-                {{ form_widget(form.anyo_de_publicacion) }}
+                {{ form_widget(form.availability_day, {'attr': {'style': 'width: 30px; height: 22px'}}) }} -
+                {{ form_widget(form.availability_month) }} -
+                {{ form_widget(form.availability_year) }}
             </div>
         </div>
 
@@ -65,7 +65,7 @@
                 <p>Imagen</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.imagen_file) }}
+                {{ form_widget(form.image_file) }}
             </div>
         </div>
 
@@ -79,7 +79,7 @@
             </div>
 
             <div class="col-2">
-                &nbsp;<a href="{{ path('admin_publication_index') }}">Cancelar</a>
+                &nbsp;<a href="{{ path('admin_post_index') }}">Cancelar</a>
             </div>
 
         </div>

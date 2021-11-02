@@ -36,6 +36,6 @@ final class ContactForm03Controller extends AbstractController
             'last_name' => $data['last_name'],
         ];
 
-        file_put_contents($dir . '/database.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
+        file_put_contents($dir . '/contact_form_sf.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
     }
 }

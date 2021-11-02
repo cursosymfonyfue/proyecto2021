@@ -2,9 +2,9 @@
 
 namespace App\Context\Admin\Publicacion\Email;
 
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 final class EmailSender
@@ -16,7 +16,7 @@ final class EmailSender
         $this->mailer = $mailer;
     }
 
-    public function enviaEmailNuevaPublicacionCreada(): void
+    public function sendNewPostEMail(): void
     {
         $email = new Email();
 
@@ -29,12 +29,12 @@ final class EmailSender
         $this->mailer->send($email);
     }
 
-    public function enviaEmailPublicacionModificada()
+    public function sendModifiedPostEmail()
     {
         $bodyEnHtml = '<p>Se ha <b>modificado</b> una publicación!</p>';
 
         $email = new Email();
-        $email->from(new NamedAddress('no-reply@myproject.ext', 'My Project'))
+        $email->from(new Address('no-reply@myproject.ext', 'My Project'))
               ->to('admin@myproject.ext')
               ->subject('publicación modificada')
               ->text((new HtmlConverter())->convert($bodyEnHtml))

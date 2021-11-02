@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Command\Base\ModelBuilderTrait;
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,21 +29,21 @@ final class Email03VariosFromCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $publicacionDTO = self::buildDTO();
+        $postDTO = self::buildDTO();
 
-        $this->send($publicacionDTO);
+        $this->send($postDTO);
     }
 
-    public function send(PublicacionDTO $publicacionDTO): void
+    public function send(PostDTO $postDTO): void
     {
-        $context = ['publicacion' => $publicacionDTO];
+        $context = ['publicacion' => $postDTO];
 
         $email = (new TemplatedEmail())
             ->from(new NamedAddress('support@myproject.ext', 'My Project'))
             ->to('admin@myproject.ext')
             ->subject('publicación modificada')
             ->context($context)
-            ->htmlTemplate('notification/email-02.html.twig');
+            ->htmlTemplate('notification/email_notification.html.twig');
 
         $email->getHeaders()->addTextHeader('X-Transport', 'support@myproject.ext');
         $this->mailer->send($email);

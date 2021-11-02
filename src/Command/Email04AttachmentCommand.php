@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Command\Base\ModelBuilderTrait;
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,14 +29,14 @@ final class Email04AttachmentCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $publicacionDTO = self::buildDTO();
+        $postDTO = self::buildDTO();
 
-        $this->send($publicacionDTO);
+        $this->send($postDTO);
     }
 
-    public function send(PublicacionDTO $publicacionDTO): void
+    public function send(PostDTO $postDTO): void
     {
-        $context = ['publicacion' => $publicacionDTO];
+        $context = ['publicacion' => $postDTO];
 
         $email = (new TemplatedEmail())
             ->from('support@myproject.ext')

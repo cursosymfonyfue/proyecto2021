@@ -2,17 +2,17 @@
 
 namespace App\Command\Base;
 
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 
 trait ModelBuilderTrait
 {
-    private static function buildDTO(): PublicacionDTO
+    private static function buildDTO(): PostDTO
     {
-        $publicacionDTO = PublicacionDTO::create();
-        $publicacionDTO->setFechaDePublicacion(new \DateTime());
-        $publicacionDTO->setNombre('Título del post');
-        $publicacionDTO->setDescripcion('<b>Aquí vendría el mensaje del post<b><hr>aquí más info');
+        $postDTO = PostDTO::create();
+        $postDTO->setFechaDePublicacion(new \DateTime());
+        $postDTO->setNombre('Título del post');
+        $postDTO->setDescripcion('<b>Aquí vendría el mensaje del post<b><hr>aquí más info');
 
-        return $publicacionDTO;
+        return $postDTO;
     }
 }

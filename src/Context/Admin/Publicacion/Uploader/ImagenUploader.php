@@ -2,7 +2,7 @@
 
 namespace App\Context\Admin\Publicacion\Uploader;
 
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ImagenUploader
@@ -14,13 +14,13 @@ final class ImagenUploader
         $this->kernelProjectDir = $kernelProjectDir;
     }
 
-    public function upload(?UploadedFile $imagen, PublicacionDTO $publicacionDTO): void
+    public function upload(?UploadedFile $imagen, PostDTO $postDTO): void
     {
-        if (empty($publicacionDTO->getImagen())) {
+        if (empty($postDTO->getImage())) {
             return;
         }
 
-        $imagen->move($this->resolveUploadPath(), $publicacionDTO->getImagen());
+        $imagen->move($this->resolveUploadPath(), $postDTO->getImage());
     }
 
     private function resolveUploadPath(): string

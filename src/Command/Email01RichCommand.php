@@ -2,12 +2,13 @@
 
 namespace App\Command;
 
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
 // bin/console csf:email-01
@@ -24,21 +25,21 @@ final class Email01RichCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $publicacionDTO = self::buildDTO();
-        $this->send($publicacionDTO);
+        $postDTO = self::buildDTO();
+        $this->send($postDTO);
     }
 
-    public function send(PublicacionDTO $publicacionDTO): void
+    public function send(PostDTO $postDTO): void
     {
         $bodyEnHtml = "
                 <p>Resumen de publicación</p>
-                <p>Título: {$publicacionDTO->getNombre()}</p>
-                <p>Descripción: {$publicacionDTO->getDescripcion()}</p>
-                <p>Fecha de Publicación: {$publicacionDTO->getFechaDePublicacion()->format('Y-m-d')}</p>
+                <p>Título: {$postDTO->getTitle()}</p>
+                <p>Descripción: {$postDTO->getBody()}</p>
+                <p>Fecha de Publicación: {$postDTO->getAvailableAt()->format('Y-m-d')}</p>
                 ";
 
         $email = new Email();
-        $email->from(new NamedAddress('no-reply@myproject.ext', 'My Project'))
+        $email->from(new Address('no-reply@myproject.ext', 'My Project'))
               ->to('admin@myproject.ext')
               ->subject('Resumen de publicación')
               ->text((new HtmlConverter())->convert($bodyEnHtml))
@@ -48,13 +49,13 @@ final class Email01RichCommand extends Command
         $this->mailer->send($email);
     }
 
-    private static function buildDTO(): PublicacionDTO
+    private static function buildDTO(): PostDTO
     {
-        $publicacionDTO = PublicacionDTO::create();
-        $publicacionDTO->setFechaDePublicacion(new \DateTime());
-        $publicacionDTO->setNombre('Título del post');
-        $publicacionDTO->setDescripcion('<b>Aquí vendría el mensaje del post<b><hr>aquí más info');
+        $postDTO = PostDTO::create();
+        $postDTO->setAvailableAt(new \DateTime());
+        $postDTO->setTitle('Título del post');
+        $postDTO->setBody('<b>Aquí vendría el mensaje del post<b><hr>aquí más info');
 
-        return $publicacionDTO;
+        return $postDTO;
     }
 }

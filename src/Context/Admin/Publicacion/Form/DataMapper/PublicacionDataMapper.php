@@ -2,15 +2,15 @@
 
 namespace App\Context\Admin\Publicacion\Form\DataMapper;
 
-use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
+use App\Context\Admin\Publicacion\DTO\PostDTO;
 use App\Context\Application\SiteManager;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
-use Symfony\Component\Uid\Uuid;
+use Exception;
 
 final class PublicacionDataMapper extends DataMapper implements DataMapperInterface
 {
-    /** @param PublicacionDTO|null $viewData */
+    /** @param PostDTO|null $viewData */
     public function mapDataToForms($viewData, iterable $forms): void
     {
         // there is no data yet, so nothing to prepopulate
@@ -19,23 +19,26 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
         }
 
         // invalid data type
-        if (!$viewData instanceof PublicacionDTO) {
-            throw new \UnexpectedTypeException($viewData, \DateTime::class);
+        if (!$viewData instanceof PostDTO) {
+            throw new Exception('expected PostDTO type object');
         }
 
         /** @var FormInterface[] $forms */
         $forms = iterator_to_array($forms);
 
         // MAPEO DE FECHA DE PUBLICACIÓN
-        $fechaDePublicacion = $viewData->getFechaDePublicacion();
-        if (null !== $fechaDePublicacion) {
-            $forms['dia_de_publicacion']->setData($fechaDePublicacion->format('d'));
-            $forms['mes_de_publicacion']->setData($fechaDePublicacion->format('m'));
-            $forms['anyo_de_publicacion']->setData($fechaDePublicacion->format('Y'));
+        $availableAt = $viewData->getAvailableAt();
+        if (null !== $availableAt) {
+            $forms['availability_day']->setData($availableAt->format('d'));
+            $forms['availability_month']->setData($availableAt->format('m'));
+            $forms['availability_year']->setData($availableAt->format('Y'));
         }
+
+        // Esta línea es importante para que sean efectivos los cambios
+        parent::mapDataToForms($viewData, $forms);
     }
 
-    /** @param PublicacionDTO|null $viewData */
+    /** @param PostDTO|null $viewData */
     public function mapFormsToData(iterable $forms, &$viewData): void
     {
         /** @var FormInterface[] $forms */
@@ -43,28 +46,29 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
 
         // MAPEO DE FECHA DE PUBLICACIÓN
         $dateAsISOString = sprintf('%s-%s-%s 00:00:00',
-            $forms['anyo_de_publicacion']->getData(),
-            $forms['mes_de_publicacion']->getData(),
-            $forms['dia_de_publicacion']->getData()
+            $forms['availability_year']->getData(),
+            $forms['availability_month']->getData(),
+            $forms['availability_day']->getData()
         );
-        $viewData->setFechaDePublicacion(new \DateTime($dateAsISOString));
+        $viewData->setAvailableAt(new \DateTime($dateAsISOString));
 
         // MAPEO DEL NOMBRE DE LA IMAGEN - DEFINIMOS EL NOMBRE DE LA IMAGEN SI:
         // 1.- Subimos archivo
         // 2.- No se subió antes ninguna imagen
-        //
-        //dump($viewData->getImagen()); die();
-        if (null !== ($imagenFile = $forms['imagen_file']->getData())) {
+        if (null !== ($imagenFile = $forms['image_file']->getData())) {
 
             $name = pathinfo($imagenFile->getData()->getClientOriginalName(), PATHINFO_FILENAME);
             $ext = $imagenFile->guessExtension();
 
-            $imagenNombre = sprintf('%s-%s.%s',
+            $imageName = sprintf('%s-%s.%s',
                 $name,
-                Uuid::v4()->toRfc4122(),
+                $viewData->getId(),
                 $ext
             );
-            $viewData->setImagen($imagenNombre);
+            $viewData->setImage($imageName);
         }
+
+        // Esta línea es importante para que sean efectivos los cambios
+        parent::mapFormsToData($forms, $viewData);
     }
 }

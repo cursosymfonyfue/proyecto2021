@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'last_name' => $_POST['last_name'],
     ];
 
-    file_put_contents($dir . '/database.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
+    file_put_contents($dir . '/contact_form_php.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
 
     // INFO
     echo "<b>EVOILÀ, YA TENEMOS DATOS VÁLIDOS!!!</b>";

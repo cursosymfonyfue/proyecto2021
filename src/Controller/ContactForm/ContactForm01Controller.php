@@ -17,7 +17,7 @@ final class ContactForm01Controller extends AbstractController
         $form = $this->createForm(ContactFormType::class);
 
         // Si no llevamos a cabo la gestión de la request, isSubmitted siempre será FALSE
-        $form->handleRequest($request);
+        // $form->handleRequest($request);
         if ($form->isSubmitted()) {
             echo var_export($form->getData());
         }
