@@ -4,6 +4,7 @@
         <div class="row pt-4">
             <h4 style="margin-left:18px;">{% block titulo_seccion %}NUEVA PUBLICACIÓN{% endblock %}</h4>
         </div>
+
         {% if (form.vars.alerta is defined) %}
             <div class="row">
                 <div class="col w-100 alert alert-danger">
@@ -21,9 +22,9 @@
                 <p>Título *</p>
             </div>
             <div class="col-10">
-                {{ form_widget(form.titulo) }}
-                {{ form_errors(form.titulo) }}
-                {{ form_help(form.titulo) }}
+                {{ form_widget(form.nombre) }}
+                {{ form_errors(form.nombre) }}
+                {{ form_help(form.nombre) }}
             </div>
         </div>
 

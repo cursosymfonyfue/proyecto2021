@@ -34,7 +34,7 @@ class PublicacionAddType extends AbstractType
         $builder->add('id', HiddenType::class);
 
         // Es recomendable que todo lo referente a UX esté en el propio html
-        $builder->add('titulo', TextType::class, [
+        $builder->add('nombre', TextType::class, [
             'attr' => [
                 'placeholder' => 'inserte aquí un título',
             ],

@@ -5,7 +5,7 @@ namespace App\Controller\Admin\Publicacion;
 use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
 use App\Context\Admin\Publicacion\Email\EmailSender;
 use App\Context\Admin\Publicacion\Form\Type\PublicacionAddType;
-use App\Context\Admin\Publicacion\Repository\PublicacionesPersister;
+use App\Context\Admin\Publicacion\TextRepository\PublicacionesPersister;
 use App\Context\Admin\Publicacion\Resolver\NombreDeImagenResolver;
 use App\Context\Admin\Publicacion\Uploader\ImagenUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

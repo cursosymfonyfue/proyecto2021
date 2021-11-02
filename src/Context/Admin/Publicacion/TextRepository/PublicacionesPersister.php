@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Repository;
+namespace App\Context\Admin\Publicacion\TextRepository;
 
 use App\Context\Admin\Publicacion\DTO\PublicacionDTO;
 
@@ -36,6 +36,8 @@ final class PublicacionesPersister
         if (!is_file($path = sprintf('%s/tmp/publicacion.txt', $this->kernelProjectDir))) {
             return;
         }
+
+        $publicaciones=[];
 
         $fp = fopen($path, "r+");
         while (($publicacion = stream_get_line($fp, 1024 * 1024, "\n")) !== false) {

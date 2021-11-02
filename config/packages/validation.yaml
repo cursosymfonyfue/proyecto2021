@@ -2,6 +2,10 @@ framework:
     validation:
         email_validation_mode: html5
 
+        mapping:
+            paths:
+                - '%kernel.project_dir%/src/Context/ContactForm/ContactForm04/Validation/contact_form_validation.yaml'
+
         # Enables validator auto-mapping support.
         # For instance, basic validation constraints will be inferred from Doctrine's metadata.
         #auto_mapping:

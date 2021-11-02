@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Publicacion;
 
-use App\Context\Admin\Publicacion\Repository\PublicacionesPersister;
+use App\Context\Admin\Publicacion\TextRepository\PublicacionesPersister;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

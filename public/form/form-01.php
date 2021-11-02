@@ -15,7 +15,7 @@ Notas:
 <form method="POST">
 
     <!-- 2.- ESTABLECIMIENTO -->
-    <label for="fname">First name: *</label><br>
+    <label for="fname">First name:</label><br>
     <input type="text" name="first_name" id="the_first_name_id" value="<?php echo $_POST['first_name']; ?>"><br>
 
     <!-- 2.- ESTABLECIMIENTO -->

@@ -48,6 +48,7 @@ services:
             - mariadb
 
     mailhog:
+        container_name: csf_mailhog
         image: mailhog/mailhog
         logging:
             driver: 'none'  # disable saving logs

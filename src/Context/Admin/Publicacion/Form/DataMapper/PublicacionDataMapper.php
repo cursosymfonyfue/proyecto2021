@@ -52,8 +52,11 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
         // MAPEO DEL NOMBRE DE LA IMAGEN - DEFINIMOS EL NOMBRE DE LA IMAGEN SI:
         // 1.- Subimos archivo
         // 2.- No se subió antes ninguna imagen
-        if (null !== ($imagenFile = $forms['imagen_file']) && empty($viewData->getImagen())) {
-            $name = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
+        //
+        //dump($viewData->getImagen()); die();
+        if (null !== ($imagenFile = $forms['imagen_file']->getData())) {
+
+            $name = pathinfo($imagenFile->getData()->getClientOriginalName(), PATHINFO_FILENAME);
             $ext = $imagenFile->guessExtension();
 
             $imagenNombre = sprintf('%s-%s.%s',

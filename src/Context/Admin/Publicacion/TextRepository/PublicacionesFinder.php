@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Repository;
+namespace App\Context\Admin\Publicacion\TextRepository;
 
 final class PublicacionesFinder
 {
@@ -39,12 +39,14 @@ final class PublicacionesFinder
         $fp = fopen($path, "r+");
         while (($publicacion = stream_get_line($fp, 1024 * 1024, "\n")) !== false) {
             $publicacion = json_decode($publicacion, true);
-            if (!empty($publicacion) && $id !== $publicacion['id']) {
+
+            if (!empty($publicacion) && $id === $publicacion['id']) {
+                fclose($fp);
                 return $publicacion;
             }
         }
-        fclose($fp);
 
+        fclose($fp);
         return [];
     }
 }
