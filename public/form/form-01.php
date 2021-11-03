@@ -34,12 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'last_name' => $_POST['last_name'],
     ];
 
+    // LA VALIDACIÓN la veremos en el siguiente ejemplo
 
     if (!is_dir($dir = __DIR__ . '/../../tmp')) {
         mkdir($dir, 0755);
     }
 
-    // 4.- TRATAMIENTO DE DATOS
+    // 5.- TRATAMIENTO DE DATOS
     file_put_contents($dir . '/contact_form_php.txt', json_encode($dto) . PHP_EOL, FILE_APPEND);
 
 

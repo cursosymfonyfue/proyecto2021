@@ -19,7 +19,7 @@ RUTA: http://localhost:8080/form/form-02.php
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Validación
+    // 4.- VALIDACIÓN. ¿Qué pasa si queremos mostrar el mensaje de error al lado del input type?
     if (empty($_POST['first_name'])) {
         echo '<span style="color:red">Nombre requerido</span><br>';
     }
