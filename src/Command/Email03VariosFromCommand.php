@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Command\Base\ModelBuilderTrait;
-use App\Context\Admin\Publicacion\DTO\PostDTO;
+use App\Context\Admin\Post\DTO\PostDTO;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

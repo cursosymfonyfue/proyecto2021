@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Form\Type;
+namespace App\Context\Admin\Post\Form\Type;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;

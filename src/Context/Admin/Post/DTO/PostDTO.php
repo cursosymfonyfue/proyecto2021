@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\DTO;
+namespace App\Context\Admin\Post\DTO;
 
 use DateTime;
 
 final class PostDTO
 {
-    const STATES = ['0' => 'disabled', '1' => 'active'];
+    const STATES = ['active' => 1, 'disabled' => 0];
 
     private int        $id;
     private string     $title;
     private string     $body;
-    private ?int       $state;
+    private ?int    $state;
     private ?\DateTime $availableAt;
     private ?string    $image;
 
@@ -35,7 +35,7 @@ final class PostDTO
         $self->setTitle($params['title']);
         $self->setBody($params['body']);
         $self->setAvailableAt(new DateTime($params['available_at']));
-        $self->setState((int)$params['state']);
+        $self->setState($params['state']);
         $self->setImage($params['image']);
 
         return $self;

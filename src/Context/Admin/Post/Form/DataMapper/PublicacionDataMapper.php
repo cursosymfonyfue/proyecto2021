@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Form\DataMapper;
+namespace App\Context\Admin\Post\Form\DataMapper;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
-use App\Context\Application\SiteManager;
+use App\Context\Admin\Post\DTO\PostDTO;
+use Exception;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
-use Exception;
 
 final class PublicacionDataMapper extends DataMapper implements DataMapperInterface
 {
@@ -26,6 +25,9 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
         /** @var FormInterface[] $forms */
         $forms = iterator_to_array($forms);
 
+        // Esta línea es importante que vaya inmediatamente después de iterator_to_array
+        parent::mapDataToForms($viewData, $forms);
+
         // MAPEO DE FECHA DE PUBLICACIÓN
         $availableAt = $viewData->getAvailableAt();
         if (null !== $availableAt) {
@@ -33,9 +35,6 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
             $forms['availability_month']->setData($availableAt->format('m'));
             $forms['availability_year']->setData($availableAt->format('Y'));
         }
-
-        // Esta línea es importante para que sean efectivos los cambios
-        parent::mapDataToForms($viewData, $forms);
     }
 
     /** @param PostDTO|null $viewData */
@@ -56,7 +55,6 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
         // 1.- Subimos archivo
         // 2.- No se subió antes ninguna imagen
         if (null !== ($imagenFile = $forms['image_file']->getData())) {
-
             $name = pathinfo($imagenFile->getData()->getClientOriginalName(), PATHINFO_FILENAME);
             $ext = $imagenFile->guessExtension();
 

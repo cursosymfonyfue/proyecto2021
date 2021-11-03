@@ -11,24 +11,36 @@
 
         </div>
         {{ include('admin/post/include/_flash.html.twig') }}
-        <div class="row">
-            {% for post in posts %}
 
-                <div class="col-4">{{ post.id }}</div>
-                <div class="col-1">{{ post.title | slice(0, 20) }} ...</div>
-                <div class="col-1">{{ post.body | slice (0, 20) }} ...</div>
-                <div class="col-2">{{ post.available_at | date('d-m-Y') }}</div>
-                <div class="col-2">
+        <div class="row">
+            <div class="col">Id</div>
+            <div class="col">Title</div>
+            <div class="col">Body</div>
+            <div class="col">State</div>
+            <div class="col">Available At</div>
+            <div class="col">Image</div>
+            <div class="col">Edit</div>
+            <div class="col">Delete</div>
+        </div>
+            {% for post in posts %}
+        <div class="row mt-2">
+
+                <div class="col">{{ post.id }}</div>
+                <div class="col">{{ post.title | slice(0, 20) }} ...</div>
+                <div class="col">{{ post.body | slice (0, 20) }} ...</div>
+                <div class="col">{{ post.state == 1?'activo':'desactivado' }}</div>
+                <div class="col">{{ post.available_at | date('d-m-Y') }}</div>
+                <div class="col">
                     {% if (post.image) %}
                         <img src="{{ '/uploads/' ~ post.image }}" width="50">
                     {% else %}
-                        [sin foto]
+                        -
                     {% endif %}
                 </div>
-                <div class="col-1"><a href="{{ path('admin_post_edit', {'id': post.id}) }}">Editar</a></div>
-                <div class="col-1"><a href="{{ path('admin_post_delete', {'id': post.id}) }}">Elmininar</a></div>
-                <hr>
-            {% endfor %}
+                <div class="col"><a href="{{ path('admin_post_edit', {'id': post.id}) }}">Editar</a></div>
+                <div class="col"><a href="{{ path('admin_post_delete', {'id': post.id}) }}">Elmininar</a></div>
+
         </div>
+            {% endfor %}
     </div>
 {% endblock %}

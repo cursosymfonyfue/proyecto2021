@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
+use App\Context\Admin\Post\DTO\PostDTO;
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

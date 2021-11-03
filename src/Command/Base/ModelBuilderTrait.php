@@ -2,7 +2,7 @@
 
 namespace App\Command\Base;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
+use App\Context\Admin\Post\DTO\PostDTO;
 
 trait ModelBuilderTrait
 {

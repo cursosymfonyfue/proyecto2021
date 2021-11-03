@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Uploader;
+namespace App\Context\Admin\Post\Uploader;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
+use App\Context\Admin\Post\DTO\PostDTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ImagenUploader

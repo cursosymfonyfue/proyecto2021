@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Email;
+namespace App\Context\Admin\Post\Email;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Mailer\MailerInterface;

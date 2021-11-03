@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\Form\Type;
+namespace App\Context\Admin\Post\Form\Type;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
-use App\Context\Admin\Publicacion\Form\DataMapper\PublicacionDataMapper;
-use App\Context\Admin\Publicacion\Form\DataTransformer\StateDataTransformer;
-use App\Context\Admin\Publicacion\Resolver\MesesResolver;
+use App\Context\Admin\Post\DTO\PostDTO;
+use App\Context\Admin\Post\Form\DataMapper\PublicacionDataMapper;
+use App\Context\Admin\Post\Form\DataTransformer\StateDataTransformer;
+use App\Context\Admin\Post\Resolver\MesesResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -45,7 +45,7 @@ class PublicacionAddType extends AbstractType
         $builder->add('body', TextareaType::class);
 
         // Ver línea 370 Symfony\Component\Form\Extension\Core\Type\ChoiceType para ver los parámetros admitidos
-        $states = ['Seleccione Estado' => null, 'Activo' => 1, 'Inactivo' => 0];
+        $states = ['Seleccione Estado' => null, 'Activo' => 'active', 'Desactivado' => 'disabled'];
         $builder->add('state', ChoiceType::class, ['choices' => $states]);
 
         $builder->add('availability_day', TextType::class, ['mapped' => false]);

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\TextRepository;
+namespace App\Context\Admin\Post\TextRepository;
 
 final class PostFinder
 {

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Context\Admin\Publicacion\TextRepository;
+namespace App\Context\Admin\Post\TextRepository;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
+use App\Context\Admin\Post\DTO\PostDTO;
 
 final class PostPersister
 {

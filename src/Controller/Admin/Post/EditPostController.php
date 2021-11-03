@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace App\Controller\Admin\Publicacion;
+namespace App\Controller\Admin\Post;
 
-use App\Context\Admin\Publicacion\DTO\PostDTO;
-use App\Context\Admin\Publicacion\Email\EmailSender;
-use App\Context\Admin\Publicacion\Form\Type\PublicacionEditType;
-use App\Context\Admin\Publicacion\TextRepository\PostFinder;
-use App\Context\Admin\Publicacion\TextRepository\PostPersister;
-use App\Context\Admin\Publicacion\Uploader\ImagenUploader;
+use App\Context\Admin\Post\DTO\PostDTO;
+use App\Context\Admin\Post\Email\EmailSender;
+use App\Context\Admin\Post\Form\Type\PublicacionEditType;
+use App\Context\Admin\Post\TextRepository\PostFinder;
+use App\Context\Admin\Post\TextRepository\PostPersister;
+use App\Context\Admin\Post\Uploader\ImagenUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

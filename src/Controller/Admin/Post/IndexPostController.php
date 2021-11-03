@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Controller\Admin\Publicacion;
+namespace App\Controller\Admin\Post;
 
-use App\Context\Admin\Publicacion\TextRepository\PostFinder;
+use App\Context\Admin\Post\TextRepository\PostFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
