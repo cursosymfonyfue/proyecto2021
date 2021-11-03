@@ -1,4 +1,5 @@
 <h1>Resumen de publicación</h1>
-<p>F. de alta {{ publication.availableAt | date('Y-m-d') }}</p>
-<p>Título {{ publication.title }}</p>
-<p>Descripción {{ publication.body }}</p>
+<p>Publicado a partir de: {{ post.availableAt | date('Y-m-d') }}</p>
+<p>Título {{ post.title }}</p>
+{#<p>Descripción {{ post.body }}</p>#}
+<p>Descripción {{ post.body | raw }}</p>

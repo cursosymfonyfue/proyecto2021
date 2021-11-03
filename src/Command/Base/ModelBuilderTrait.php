@@ -9,9 +9,9 @@ trait ModelBuilderTrait
     private static function buildDTO(): PostDTO
     {
         $postDTO = PostDTO::create();
-        $postDTO->setFechaDePublicacion(new \DateTime());
-        $postDTO->setNombre('Título del post');
-        $postDTO->setDescripcion('<b>Aquí vendría el mensaje del post<b><hr>aquí más info');
+        $postDTO->setAvailableAt(new \DateTime());
+        $postDTO->setTitle('Título del post');
+        $postDTO->setBody('<b>Aquí vendría el mensaje del post</b>. Aquí más info...');
 
         return $postDTO;
     }

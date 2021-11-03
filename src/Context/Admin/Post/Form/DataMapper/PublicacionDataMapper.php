@@ -42,6 +42,8 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
     {
         /** @var FormInterface[] $forms */
         $forms = iterator_to_array($forms);
+        // Esta línea es importante para que sean efectivos los cambios
+        parent::mapFormsToData($forms, $viewData);
 
         // MAPEO DE FECHA DE PUBLICACIÓN
         $dateAsISOString = sprintf('%s-%s-%s 00:00:00',
@@ -55,7 +57,8 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
         // 1.- Subimos archivo
         // 2.- No se subió antes ninguna imagen
         if (null !== ($imagenFile = $forms['image_file']->getData())) {
-            $name = pathinfo($imagenFile->getData()->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $name = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
             $ext = $imagenFile->guessExtension();
 
             $imageName = sprintf('%s-%s.%s',
@@ -63,10 +66,8 @@ final class PublicacionDataMapper extends DataMapper implements DataMapperInterf
                 $viewData->getId(),
                 $ext
             );
+
             $viewData->setImage($imageName);
         }
-
-        // Esta línea es importante para que sean efectivos los cambios
-        parent::mapFormsToData($forms, $viewData);
     }
 }

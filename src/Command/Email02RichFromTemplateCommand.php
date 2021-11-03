@@ -28,19 +28,18 @@ final class Email02RichFromTemplateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $postDTO = self::buildDTO();
-
         $this->send($postDTO);
+
+        exit(0);
     }
 
     public function send(PostDTO $postDTO): void
     {
-        $context = ['publicacion' => $postDTO];
-
         $email = (new TemplatedEmail())
-            ->from(new Address('no-reply@myproject.ext', 'My Project'))
+            ->from(new Address('no-reply@myproject.ext', 'No-Reply'))
             ->to('admin@myproject.ext')
             ->subject('publicación modificada')
-            ->context($context)
+            ->context(['post' => $postDTO])
             ->htmlTemplate('notification/email_notification.html.twig');
 
         $this->mailer->send($email);

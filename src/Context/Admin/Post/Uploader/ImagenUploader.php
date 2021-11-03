@@ -16,7 +16,7 @@ final class ImagenUploader
 
     public function upload(?UploadedFile $imagen, PostDTO $postDTO): void
     {
-        if (empty($postDTO->getImage())) {
+        if (null === $imagen) {
             return;
         }
 

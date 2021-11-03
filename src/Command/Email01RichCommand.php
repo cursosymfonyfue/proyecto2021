@@ -27,6 +27,8 @@ final class Email01RichCommand extends Command
     {
         $postDTO = self::buildDTO();
         $this->send($postDTO);
+
+        exit(0);
     }
 
     public function send(PostDTO $postDTO): void
@@ -39,7 +41,7 @@ final class Email01RichCommand extends Command
                 ";
 
         $email = new Email();
-        $email->from(new Address('no-reply@myproject.ext', 'My Project'))
+        $email->from('no-reply@myproject.ext')
               ->to('admin@myproject.ext')
               ->subject('Resumen de publicación')
               ->text((new HtmlConverter())->convert($bodyEnHtml))

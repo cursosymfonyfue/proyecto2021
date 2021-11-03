@@ -30,13 +30,14 @@ final class Email04AttachmentCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $postDTO = self::buildDTO();
-
         $this->send($postDTO);
+
+        exit(0);
     }
 
     public function send(PostDTO $postDTO): void
     {
-        $context = ['publicacion' => $postDTO];
+        $context = ['post' => $postDTO];
 
         $email = (new TemplatedEmail())
             ->from('support@myproject.ext')
@@ -44,8 +45,9 @@ final class Email04AttachmentCommand extends Command
             ->subject('publicación modificada')
             ->text('Email with attachment');
 
-        $email->attachFromPath($this->kernelProjectDir . '/data/email_attachment_1.txt');
-        $email->attachFromPath($this->kernelProjectDir . '/data/email_attachment_2.txt');
+        $email->attachFromPath($this->kernelProjectDir . '/data/attachments/email_attachment_1.txt');
+        $email->attachFromPath($this->kernelProjectDir . '/data/attachments/email_attachment_2.txt');
+        $email->attach(file_get_contents($this->kernelProjectDir . '/data/img/cat.jpg'), 'one-cat.jpg', 'image/jpeg');
 
         $email->getHeaders()->addTextHeader('X-Transport', 'support@myproject.ext');
         $this->mailer->send($email);

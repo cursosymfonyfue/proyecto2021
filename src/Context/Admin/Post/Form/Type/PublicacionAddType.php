@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PublicacionAddType extends AbstractType
@@ -64,22 +66,22 @@ class PublicacionAddType extends AbstractType
         // LOS 5 FORM EVENTS
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
         $builder->addEventListener(FormEvents::POST_SET_DATA, function () {
-            echo "estoy en post-set-data <br>";
+            // echo "estoy en post-set-data <br>";
         });
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function () {
-            echo "estoy en pre-submit <br>";
+            // echo "estoy en pre-submit <br>";
         });
         $builder->addEventListener(FormEvents::SUBMIT, function () {
-            echo "estoy en submit <br>";
+            // echo "estoy en submit <br>";
         });
         $builder->addEventListener(FormEvents::POST_SUBMIT, function () {
-            echo "estoy en post-submit <br>";
+            // echo "estoy en post-submit <br>";
         });
     }
 
     public function onPreSetData(FormEvent $event)
     {
-        echo "estoy en pre-set-data <br>";
+        // echo "estoy en pre-set-data <br>";
 
         $form = $event->getForm();
         /** @var PostDTO $data */
@@ -96,6 +98,14 @@ class PublicacionAddType extends AbstractType
         $months = MesesResolver::resolve();
         $options['choices'] = $months;
         $form->add('availability_month', ChoiceType::class, $options);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        /** @var PostDTO $postDTO */
+        $postDTO = $form->getData();
+
+        $view->vars['image_path'] = (!empty($postDTO->getImage())) ? '/uploads/' . $postDTO->getImage() : '';
     }
 
     public function configureOptions(OptionsResolver $resolver)

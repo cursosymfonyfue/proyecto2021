@@ -64,8 +64,19 @@
             <div class="col-2">
                 <p>Imagen</p>
             </div>
-            <div class="col-10">
+            <div class="col-6">
                 {{ form_widget(form.image_file) }}
+            </div>
+            <div class="col-4">
+                {# Directamente del Objeto: #}
+                {# {% if (form.image.vars.value) %} #}
+                {# <img src="{{ '/uploads/' ~ form.image.vars.value }}" width="50"> #}
+                {# {% endif %} #}
+
+                {#                Desde una vble propia definida en la view:#}
+                {% if (form.vars.image_path) %}
+                    <img src="{{ form.vars.image_path }}" width="50">
+                {% endif %}
             </div>
         </div>
 

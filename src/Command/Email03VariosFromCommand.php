@@ -9,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 // bin/console csf:email-03
 
@@ -30,16 +31,17 @@ final class Email03VariosFromCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $postDTO = self::buildDTO();
-
         $this->send($postDTO);
+
+        exit(0);
     }
 
     public function send(PostDTO $postDTO): void
     {
-        $context = ['publicacion' => $postDTO];
+        $context = ['post' => $postDTO];
 
         $email = (new TemplatedEmail())
-            ->from(new NamedAddress('support@myproject.ext', 'My Project'))
+            ->from(new Address('support@myproject.ext', 'Support'))
             ->to('admin@myproject.ext')
             ->subject('publicación modificada')
             ->context($context)
