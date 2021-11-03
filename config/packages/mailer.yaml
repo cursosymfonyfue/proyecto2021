@@ -1,9 +1,9 @@
-#framework:
-#    mailer:
-#        dsn: '%env(MAILER_DSN)%'
-
 framework:
     mailer:
-        transports:
-            no_reply@myproject.ext: '%env(MAILER_TRANSPORT_DSN_NO_REPLY)%'
-            support@myproject.ext: '%env(MAILER_TRANSPORT_DSN_SUPPORT)%'
+        dsn: '%env(MAILER_DSN)%'
+
+#framework:
+#    mailer:
+#        transports:
+#            no_reply@myproject.ext: '%env(MAILER_TRANSPORT_DSN_NO_REPLY)%'
+#            support@myproject.ext: '%env(MAILER_TRANSPORT_DSN_SUPPORT)%'
