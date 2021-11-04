@@ -4,9 +4,9 @@ namespace App\Controller\Admin\Post;
 
 use App\Context\Admin\Post\DTO\PostDTO;
 use App\Context\Admin\Post\Email\EmailSender;
-use App\Context\Admin\Post\Form\Type\PublicacionAddType;
+use App\Context\Admin\Post\Form\Type\PostAddType;
 use App\Context\Admin\Post\TextRepository\PostPersister;
-use App\Context\Admin\Post\Uploader\ImagenUploader;
+use App\Context\Admin\Post\Uploader\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,20 +14,19 @@ use Symfony\Component\Routing\Annotation\Route;
 /*
  * NOTAS: $builder->add es una interfaz fluida, esto es permite encadenar varios add: ->add(a)->add(b)->add(c) ....
  */
-
 final class AddPostController extends AbstractController
 {
-    private PostPersister  $postPersister;
-    private EmailSender    $emailSender;
-    private ImagenUploader $imagenUploader;
+    private PostPersister $postPersister;
+    private EmailSender   $emailSender;
+    private ImageUploader $imageUploader;
 
-    public function __construct(PostPersister  $postPersister,
-                                EmailSender    $emailSender,
-                                ImagenUploader $imagenUploader)
+    public function __construct(PostPersister $postPersister,
+                                EmailSender   $emailSender,
+                                ImageUploader $imageUploader)
     {
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
-        $this->imagenUploader = $imagenUploader;
+        $this->imageUploader = $imageUploader;
     }
 
     /**
@@ -38,7 +37,7 @@ final class AddPostController extends AbstractController
         $postDTO = PostDTO::create();
 
         // echo "estoy en antes de crear formulario <br>";
-        $form = $this->createForm(PublicacionAddType::class, $postDTO);
+        $form = $this->createForm(PostAddType::class, $postDTO);
         // echo "estoy en tras crear formulario <br>";
 
         $form->handleRequest($request);
@@ -49,7 +48,7 @@ final class AddPostController extends AbstractController
             $postDTO = $form->getData();
 
             $this->postPersister->persist($postDTO);
-            $this->imagenUploader->upload($form['image_file']->getData(), $postDTO);
+            $this->imageUploader->upload($form['image_file']->getData(), $postDTO);
             $this->emailSender->sendNewPostEMail($postDTO);
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');

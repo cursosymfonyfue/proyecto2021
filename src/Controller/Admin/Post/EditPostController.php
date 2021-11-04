@@ -4,10 +4,10 @@ namespace App\Controller\Admin\Post;
 
 use App\Context\Admin\Post\DTO\PostDTO;
 use App\Context\Admin\Post\Email\EmailSender;
-use App\Context\Admin\Post\Form\Type\PublicacionEditType;
+use App\Context\Admin\Post\Form\Type\PostEditType;
 use App\Context\Admin\Post\TextRepository\PostFinder;
 use App\Context\Admin\Post\TextRepository\PostPersister;
-use App\Context\Admin\Post\Uploader\ImagenUploader;
+use App\Context\Admin\Post\Uploader\ImageUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,18 +16,18 @@ final class EditPostController extends AbstractController
 {
     private PostFinder    $postFinder;
     private PostPersister $postPersister;
-    private EmailSender            $emailSender;
-    private ImagenUploader         $imagenUploader;
+    private EmailSender   $emailSender;
+    private ImageUploader $imageUploader;
 
     public function __construct(PostFinder    $postFinder,
                                 PostPersister $postPersister,
-                                EmailSender            $emailSender,
-                                ImagenUploader         $imagenUploader)
+                                EmailSender   $emailSender,
+                                ImageUploader $imageUploader)
     {
         $this->postFinder = $postFinder;
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
-        $this->imagenUploader = $imagenUploader;
+        $this->imageUploader = $imageUploader;
     }
 
     /**
@@ -38,7 +38,7 @@ final class EditPostController extends AbstractController
         $postArray = $this->postFinder->findById($id);
         $postDTO = PostDTO::createFromParams($postArray);
 
-        $form = $this->createForm(PublicacionEditType::class, $postDTO);
+        $form = $this->createForm(PostEditType::class, $postDTO);
         // Aquí todos los datos de la request:
         // dump($_REQUEST); die();
         $form->handleRequest($request);
@@ -50,7 +50,7 @@ final class EditPostController extends AbstractController
             $postDTO = $form->getData();
 
             $this->postPersister->persist($postDTO);
-            $this->imagenUploader->upload($form['image_file']->getData(), $postDTO);
+            $this->imageUploader->upload($form['image_file']->getData(), $postDTO);
             $this->emailSender->sendModifiedPostEmail($postDTO);
 
             $this->addFlash('success', 'Publicación editada satisfactoriamente');

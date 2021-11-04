@@ -7,7 +7,7 @@ use Exception;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
 
-final class PublicacionDataMapper extends DataMapper implements DataMapperInterface
+final class PostDataMapper extends DataMapper implements DataMapperInterface
 {
     /** @param PostDTO|null $viewData */
     public function mapDataToForms($viewData, iterable $forms): void

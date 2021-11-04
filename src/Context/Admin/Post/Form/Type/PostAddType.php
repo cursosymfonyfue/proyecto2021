@@ -3,9 +3,9 @@
 namespace App\Context\Admin\Post\Form\Type;
 
 use App\Context\Admin\Post\DTO\PostDTO;
-use App\Context\Admin\Post\Form\DataMapper\PublicacionDataMapper;
+use App\Context\Admin\Post\Form\DataMapper\PostDataMapper;
 use App\Context\Admin\Post\Form\DataTransformer\StateDataTransformer;
-use App\Context\Admin\Post\Resolver\MesesResolver;
+use App\Context\Admin\Post\Resolver\MonthsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -19,15 +19,15 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PublicacionAddType extends AbstractType
+class PostAddType extends AbstractType
 {
-    private PublicacionDataMapper $publicacionDataMapper;
+    private PostDataMapper $postDataMapper;
     private StateDataTransformer  $stateDataTransformer;
 
-    public function __construct(PublicacionDataMapper $publicacionDataMapper,
+    public function __construct(PostDataMapper $postDataMapper,
                                 StateDataTransformer  $stateDataTransformer)
     {
-        $this->publicacionDataMapper = $publicacionDataMapper;
+        $this->postDataMapper = $postDataMapper;
         $this->stateDataTransformer = $stateDataTransformer;
     }
 
@@ -58,7 +58,7 @@ class PublicacionAddType extends AbstractType
         $builder->add('image_file', FileType::class, ['mapped' => false]);
 
         // DATA MAPPER
-        $builder->setDataMapper($this->publicacionDataMapper);
+        $builder->setDataMapper($this->postDataMapper);
 
         // DATA TRANSFORMER
         $builder->get('state')->addModelTransformer($this->stateDataTransformer);
@@ -95,7 +95,7 @@ class PublicacionAddType extends AbstractType
 
         // Add months
         $options = $form->get('availability_month')->getConfig()->getOptions();
-        $months = MesesResolver::resolve();
+        $months = MonthsResolver::resolve();
         $options['choices'] = $months;
         $form->add('availability_month', ChoiceType::class, $options);
     }

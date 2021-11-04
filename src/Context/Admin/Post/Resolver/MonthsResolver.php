@@ -2,7 +2,7 @@
 
 namespace App\Context\Admin\Post\Resolver;
 
-final class MesesResolver
+final class MonthsResolver
 {
     public static function resolve(): array{
         $meses = [];

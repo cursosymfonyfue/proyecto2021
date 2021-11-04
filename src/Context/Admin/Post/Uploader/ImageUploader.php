@@ -5,7 +5,7 @@ namespace App\Context\Admin\Post\Uploader;
 use App\Context\Admin\Post\DTO\PostDTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-final class ImagenUploader
+final class ImageUploader
 {
     private string $kernelProjectDir;
 
