@@ -2,11 +2,12 @@
 
 namespace App\Controller\Admin\Post;
 
-use App\Context\Admin\Post\DTO\PostDTO;
 use App\Context\Admin\Post\Email\EmailSender;
 use App\Context\Admin\Post\Form\Type\PostAddType;
-use App\Context\Admin\Post\TextRepository\PostPersister;
+use App\Context\Admin\Post\Repository\PostPersister;
+use App\Context\Admin\Post\Resolver\LoggerUserEntityResolver;
 use App\Context\Admin\Post\Uploader\ImageUploader;
+use App\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,17 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class AddPostController extends AbstractController
 {
-    private PostPersister $postPersister;
-    private EmailSender   $emailSender;
-    private ImageUploader $imageUploader;
+    private PostPersister            $postPersister;
+    private EmailSender              $emailSender;
+    private ImageUploader            $imageUploader;
+    private LoggerUserEntityResolver $loggerUserEntityResolver;
 
     public function __construct(PostPersister $postPersister,
                                 EmailSender   $emailSender,
-                                ImageUploader $imageUploader)
+                                ImageUploader $imageUploader,
+                                LoggerUserEntityResolver $loggerUserEntityResolver)
     {
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
         $this->imageUploader = $imageUploader;
+        $this->loggerUserEntityResolver = $loggerUserEntityResolver;
     }
 
     /**
@@ -34,10 +38,10 @@ final class AddPostController extends AbstractController
      */
     public function __invoke(Request $request)
     {
-        $postDTO = PostDTO::create();
+        $postEntity = new Post();
 
         // echo "estoy en antes de crear formulario <br>";
-        $form = $this->createForm(PostAddType::class, $postDTO);
+        $form = $this->createForm(PostAddType::class, $postEntity);
         // echo "estoy en tras crear formulario <br>";
 
         $form->handleRequest($request);
@@ -45,11 +49,14 @@ final class AddPostController extends AbstractController
 
         // Aquí hay parte que estaría mejor encapsularla en un Handler
         if ($form->isSubmitted() && $form->isValid()) {
-            $postDTO = $form->getData();
+            /** @var Post $postEntity */
+            $postEntity = $form->getData();
 
-            $this->postPersister->persist($postDTO);
-            $this->imageUploader->upload($form['image_file']->getData(), $postDTO);
-            $this->emailSender->sendNewPostEMail($postDTO);
+            $postEntity->setUser($this->loggerUserEntityResolver->resolve());
+            $this->postPersister->persist($postEntity);
+
+            $this->imageUploader->upload($form['image_file']->getData(), $postEntity);
+            $this->emailSender->sendNewPostEMail();
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');
             return $this->redirectToRoute('admin_post_index');

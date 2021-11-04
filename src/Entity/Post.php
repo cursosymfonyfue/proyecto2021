@@ -6,12 +6,16 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Context\Admin\Post\Form\Validator\BodyContainsAtCharacterConstraint;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
  */
 class Post
 {
+    const STATES = ['active' => 1, 'disabled' => 0];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -27,11 +31,14 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Title can not be empty")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @BodyContainsAtCharacterConstraint
+     * @Assert\NotBlank(message="Body can not be empty")
      */
     private $body;
 
@@ -40,14 +47,36 @@ class Post
      */
     private $comments;
 
+    /** @ORM\Column(type="smallint", nullable=false, options={"default":0}) */
+    private int $state;
+
+    /** @ORM\Column(type="datetime", nullable=true) */
+    private ?\DateTime $availableAt;
+
+    /** @ORM\Column(type="string", length=255, nullable=true) */
+    private ?string $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="post")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Category $category;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->availableAt = null;
+        $this->image = null;
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
     }
 
     public function getUser(): ?User
@@ -114,5 +143,45 @@ class Post
         }
 
         return $this;
+    }
+
+    public function getState(): int
+    {
+        return $this->state;
+    }
+
+    public function setState(int $state): void
+    {
+        $this->state = $state;
+    }
+
+    public function getAvailableAt(): ?\DateTime
+    {
+        return $this->availableAt;
+    }
+
+    public function setAvailableAt(?\DateTime $availableAt): void
+    {
+        $this->availableAt = $availableAt;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
+    }
+
+    public function getCategory():?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): void
+    {
+        $this->category = $category;
     }
 }

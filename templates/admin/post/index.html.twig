@@ -1,4 +1,18 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .header {
+            background-color: #666;
+            color: white;
+        }
+
+        .even {
+            background-color: #ddd;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="row pt-4">
@@ -12,24 +26,28 @@
         </div>
         {{ include('admin/post/include/_flash.html.twig') }}
 
-        <div class="row">
+        <div class="row header">
             <div class="col">Id</div>
             <div class="col">Title</div>
             <div class="col">Body</div>
             <div class="col">State</div>
             <div class="col">Available At</div>
+            <div class="col">Author</div>
+            <div class="col">Category</div>
             <div class="col">Image</div>
             <div class="col">Edit</div>
             <div class="col">Delete</div>
         </div>
-            {% for post in posts %}
-        <div class="row mt-2">
+        {% for post in posts %}
+            <div class="row mt-2 {{ cycle(['odd', 'even'], loop.index0) }}">
 
                 <div class="col">{{ post.id }}</div>
-                <div class="col">{{ post.title | slice(0, 20) }} ...</div>
-                <div class="col">{{ post.body | slice (0, 20) }} ...</div>
+                <div class="col">{{ post.title | slice(0, 5) }} ...</div>
+                <div class="col">{{ post.body | slice (0, 5) }} ...</div>
                 <div class="col">{{ post.state == 1?'activo':'desactivado' }}</div>
-                <div class="col">{{ post.available_at | date('d-m-Y') }}</div>
+                <div class="col">{{ post.availableAt | date('d-m-Y') }}</div>
+                <div class="col">{{ post.user.username }}</div>
+                <div class="col">{{ (post.category.title is defined)?post.category.title:'' }}</div>
                 <div class="col">
                     {% if (post.image) %}
                         <img src="{{ '/uploads/' ~ post.image }}" width="50">
@@ -40,7 +58,7 @@
                 <div class="col"><a href="{{ path('admin_post_edit', {'id': post.id}) }}">Editar</a></div>
                 <div class="col"><a href="{{ path('admin_post_delete', {'id': post.id}) }}">Elmininar</a></div>
 
-        </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

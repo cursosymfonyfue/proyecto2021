@@ -1,0 +1,9 @@
+App\Entity\Category:
+    category_computers:
+        title: 'Computers'
+        slug: 'computers'
+
+    category_space_x:
+        title: 'Space X'
+        slug: 'space-x'
+

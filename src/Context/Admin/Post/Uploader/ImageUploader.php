@@ -2,7 +2,7 @@
 
 namespace App\Context\Admin\Post\Uploader;
 
-use App\Context\Admin\Post\DTO\PostDTO;
+use App\Entity\Post;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class ImageUploader
@@ -14,13 +14,13 @@ final class ImageUploader
         $this->kernelProjectDir = $kernelProjectDir;
     }
 
-    public function upload(?UploadedFile $imagen, PostDTO $postDTO): void
+    public function upload(?UploadedFile $imagen, Post $postEntity): void
     {
         if (null === $imagen) {
             return;
         }
 
-        $imagen->move($this->resolveUploadPath(), $postDTO->getImage());
+        $imagen->move($this->resolveUploadPath(), $postEntity->getImage());
     }
 
     private function resolveUploadPath(): string
