@@ -15,18 +15,13 @@ final class PostDTO
     private ?\DateTime $availableAt;
     private ?string    $image;
 
-    public function __construct()
-    {
-        $this->id = (int)(new \DateTime())->format('YmdHis');
-        $this->title = $this->body = '';
-        $this->state = $this->availableAt = $this->image = null;
-    }
-
+    // Named Constructor
     public static function create(): self
     {
         return new self();
     }
 
+    // Named Constructor
     public static function createFromParams(array $params): self
     {
         $self = new self();
@@ -41,9 +36,16 @@ final class PostDTO
         return $self;
     }
 
+    public function __construct()
+    {
+        $this->id = (int)(new \DateTime())->format('YmdHis');
+        $this->title = $this->body = '';
+        $this->state = $this->availableAt = $this->image = null;
+    }
+
     public function getId(): int
     {
-        return (int)$this->id;
+        return $this->id;
     }
 
     public function setId(int $id): void
