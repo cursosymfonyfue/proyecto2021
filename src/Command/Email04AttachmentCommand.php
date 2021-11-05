@@ -37,8 +37,6 @@ final class Email04AttachmentCommand extends Command
 
     public function send(PostDTO $postDTO): void
     {
-        $context = ['post' => $postDTO];
-
         $email = (new TemplatedEmail())
             ->from('support@myproject.ext')
             ->to('admin@myproject.ext')
