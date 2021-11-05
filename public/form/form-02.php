@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mkdir($dir, 0755);
     }
 
+    // DTO = Data Transfer Object
     $dto = [
         'first_name' => $_POST['first_name'],
         'last_name' => $_POST['last_name'],

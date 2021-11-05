@@ -2,6 +2,7 @@
 
 namespace App\Context\Admin\Post\Email;
 
+use App\Context\Admin\Post\DTO\PostDTO;
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -16,27 +17,33 @@ final class EmailSender
         $this->mailer = $mailer;
     }
 
-    public function sendNewPostEMail(): void
+    // Sólo se envía e-mail con texto plano
+    public function sendNewPostEMail(PostDTO $postDTO): void
     {
-        $email = new Email();
+        $subject= sprintf('Pulicación "%s" creada.', $postDTO->getTitle());
+        $bodyEnHtml = sprintf('Se ha creado la publicación "%s"!', $postDTO->getTitle());
 
+        $email = new Email();
         $email->from('no-reply@myproject.ext')
               ->to('admin@myproject.ext')
-              ->subject('nueva publicación')
+              ->subject($subject)
               ->text('Se ha creado una nueva publicación!')
         ;
 
         $this->mailer->send($email);
     }
 
-    public function sendModifiedPostEmail()
+    // Sólo se envía e-mail con texto plano y rico (HTML)
+    // Tip: Librería HtmlConverter (convierte html a markdown)
+    public function sendModifiedPostEmail(PostDTO $postDTO) : void
     {
-        $bodyEnHtml = '<p>Se ha <b>modificado</b> una publicación!</p>';
+        $subject= sprintf('Pulicación "%s" modificada.', $postDTO->getTitle());
+        $bodyEnHtml = sprintf('<p>Se ha <b>modificado</b> la publicación "%s"!</p>', $postDTO->getTitle());
 
         $email = new Email();
         $email->from(new Address('no-reply@myproject.ext', 'My Project'))
               ->to('admin@myproject.ext')
-              ->subject('publicación modificada')
+              ->subject($subject)
               ->text((new HtmlConverter())->convert($bodyEnHtml))
               ->html($bodyEnHtml)
         ;

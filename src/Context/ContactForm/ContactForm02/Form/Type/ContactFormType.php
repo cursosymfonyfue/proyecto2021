@@ -14,7 +14,7 @@ final class ContactFormType extends AbstractType
         $builder->add('first_name', TextType::class, [
             'required' => true,
             'constraints' => [
-                new NotBlank(),
+                new NotBlank(null, 'Atención! Este campo no puede ser vacío', false),
                 ]
         ]);
 

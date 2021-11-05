@@ -40,7 +40,7 @@ final class PostFinder
         while (($post = stream_get_line($fp, 1024 * 1024, "\n")) !== false) {
             $post = json_decode($post, true);
 
-            if (!empty($post) && (int)$id === (int)$post['id']) {
+            if (!empty($post) && $id === (int)$post['id']) {
                 fclose($fp);
                 return $post;
             }

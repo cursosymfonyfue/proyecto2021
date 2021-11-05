@@ -26,6 +26,9 @@ Notas:
 </form>
 
 <?php
+
+// echo nl2br(var_export($_SERVER, true));
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // 3.- CAPTURA DE DATOS
@@ -51,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo var_dump($_POST);
     echo '<br><hr>';
     echo 'Valor de First Name: "' . $_POST['first_name'] . '"<br>';
+    // echo "Valor de First Name: \"{$_POST['first_name']}\"<br>";
     echo sprintf('Valor de Last Name: "%s".<br>', $_POST['last_name']);
 }
 
