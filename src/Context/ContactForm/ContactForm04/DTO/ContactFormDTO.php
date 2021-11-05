@@ -4,7 +4,7 @@ namespace App\Context\ContactForm\ContactForm04\DTO;
 
 final class ContactFormDTO
 {
-    private ?string  $firstName = '';
+    private ?string $firstName = '';
     private ?string $lastName = '';
 
     public static function create(): self

@@ -18,7 +18,7 @@ final class ContactForm01Controller extends AbstractController
 
         // Si no llevamos a cabo la gestión de la request, isSubmitted siempre será FALSE
         // es donde se hace el BIND:
-        // $form->handleRequest($request);
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             echo var_export($form->getData());
         }

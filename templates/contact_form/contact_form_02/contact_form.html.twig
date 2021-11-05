@@ -8,10 +8,12 @@
 <span style="color:red">{{ form_errors(form) }}</span>
 
 <!-- Personalizamos el label, en la parte del front -->
+
 {{ form_label(form.first_name, 'First name*') }}
 <!-- Sólo mostrará los errores asociados a first_name -->
 {{ form_widget(form.first_name) }}
 <span style="color:red">{{ form_errors(form.first_name) }}</span>
+
 <br>
 
 {{ form_label(form.last_name, 'Last name') }}

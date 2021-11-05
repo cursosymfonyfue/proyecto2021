@@ -11,7 +11,7 @@ final class PostDTO
     private int        $id;
     private string     $title;
     private string     $body;
-    private ?int    $state;
+    private ?int       $state;
     private ?\DateTime $availableAt;
     private ?string    $image;
 

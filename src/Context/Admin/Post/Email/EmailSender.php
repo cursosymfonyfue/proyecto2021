@@ -21,7 +21,6 @@ final class EmailSender
     public function sendNewPostEMail(PostDTO $postDTO): void
     {
         $subject= sprintf('Pulicación "%s" creada.', $postDTO->getTitle());
-        $bodyEnHtml = sprintf('Se ha creado la publicación "%s"!', $postDTO->getTitle());
 
         $email = new Email();
         $email->from('no-reply@myproject.ext')
