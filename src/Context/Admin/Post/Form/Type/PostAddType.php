@@ -6,6 +6,7 @@ use App\Context\Admin\Post\DTO\PostDTO;
 use App\Context\Admin\Post\Form\DataMapper\PostDataMapper;
 use App\Context\Admin\Post\Form\DataTransformer\StateDataTransformer;
 use App\Context\Admin\Post\Resolver\MonthsResolver;
+use App\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PostAddType extends AbstractType
 {
@@ -42,6 +44,7 @@ class PostAddType extends AbstractType
             ],
             'help' => '<span class="fa fa-info-circle mt-2"> escoja un título que resuma la publicación</span>',
             'help_html' => true,
+            'constraints' => [ new NotBlank()]
         ]);
 
         $builder->add('body', TextareaType::class);
@@ -56,6 +59,13 @@ class PostAddType extends AbstractType
 
         $builder->add('image', HiddenType::class);
         $builder->add('image_file', FileType::class, ['mapped' => false]);
+
+        $builder->add('recaptchaToken', HiddenType::class,
+            [
+                    'mapped' => false,
+                    'constraints' => new Recaptcha3()
+            ]
+        );
 
         // DATA MAPPER
         $builder->setDataMapper($this->postDataMapper);

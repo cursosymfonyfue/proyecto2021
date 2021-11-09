@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ google_recaptcha_site_key }}"></script>
+    <script>
+        jQuery(function($){
+            $('#formWithRecaptcha').submit(function(event) {
+                event.preventDefault();
+                grecaptcha.ready(function() {
+                    grecaptcha.execute("{{ google_recaptcha_site_key }}").then(function(token) {
+                        $('#formWithRecaptcha input#post_add_recaptchaToken').val(token);
+                        $('#formWithRecaptcha').unbind('submit').submit();
+                    });;
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
+
     <div class="container">
         <div class="row pt-4">
             <h4 style="margin-left:18px;">{% block titulo_seccion %}NUEVA PUBLICACIÓN{% endblock %}</h4>
@@ -15,7 +35,7 @@
         <div class="row">
             {{ form_errors(form) }}
         </div>
-        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'style': 'border: 1px grey solid; padding: 10px'}}) }}
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'style': 'border: 1px grey solid; padding: 10px',"id":"formWithRecaptcha"}}) }}
 
         <div class="row mt-2">
             <div class="col-2">
