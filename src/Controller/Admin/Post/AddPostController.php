@@ -7,6 +7,7 @@ use App\Context\Admin\Post\Email\EmailSender;
 use App\Context\Admin\Post\Form\Type\PostAddType;
 use App\Context\Admin\Post\TextRepository\PostPersister;
 use App\Context\Admin\Post\Uploader\ImageUploader;
+use App\Service\Logger\LoggerInterface;
 use App\Service\Logger\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +21,14 @@ final class AddPostController extends AbstractController
     private PostPersister $postPersister;
     private EmailSender   $emailSender;
     private ImageUploader $imageUploader;
-    private LoggerService $loggerService;
+    private LoggerInterface $loggerService;
 
-    public function __construct(PostPersister $postPersister,
-                                EmailSender   $emailSender,
-                                ImageUploader $imageUploader,
-                                LoggerService $loggerService)
+    public function __construct(
+        LoggerInterface $loggerService,
+        PostPersister $postPersister,
+        EmailSender   $emailSender,
+        ImageUploader $imageUploader
+    )
     {
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;

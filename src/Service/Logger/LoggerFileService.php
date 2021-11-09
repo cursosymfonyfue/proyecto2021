@@ -2,20 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * Explicación binding arguments
- * Excepciones descriptivas
- * Acoplamiento siempre guardar en file
- */
-
-
 namespace App\Service\Logger;
 
 use App\Exception\LoggerFileException;
 use Exception;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class LoggerService
+final class LoggerFileService implements LoggerInterface
 {
     private string $kernelLogDir;
     private string $kernelEnvironment;
@@ -33,7 +26,7 @@ final class LoggerService
      * @param string $line
      * @throws LoggerFileException
      */
-    public function log(string $line)
+    public function log(string $line): void
     {
         $file = $this->fileName();
 

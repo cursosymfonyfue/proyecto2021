@@ -9,6 +9,7 @@ use App\Context\Admin\Post\TextRepository\PostFinder;
 use App\Context\Admin\Post\TextRepository\PostPersister;
 use App\Context\Admin\Post\Uploader\ImageUploader;
 use App\Service\Logger\LoggerDatabaseService;
+use App\Service\Logger\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,13 +20,15 @@ final class EditPostController extends AbstractController
     private PostPersister $postPersister;
     private EmailSender   $emailSender;
     private ImageUploader $imageUploader;
-    private LoggerDatabaseService $loggerService;
+    private LoggerInterface $loggerService;
 
-    public function __construct(PostFinder    $postFinder,
-                                PostPersister $postPersister,
-                                EmailSender   $emailSender,
-                                ImageUploader $imageUploader,
-                                LoggerDatabaseService $loggerService)
+    public function __construct(
+        LoggerInterface $loggerService,
+        PostFinder    $postFinder,
+        PostPersister $postPersister,
+        EmailSender   $emailSender,
+        ImageUploader $imageUploader
+    )
     {
         $this->postFinder = $postFinder;
         $this->postPersister = $postPersister;

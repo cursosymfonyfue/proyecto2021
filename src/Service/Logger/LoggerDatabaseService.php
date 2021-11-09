@@ -2,13 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * Explicación binding arguments
- * Excepciones descriptivas
- * Acoplamiento siempre guardar en file
- */
-
-
 namespace App\Service\Logger;
 
 use App\Entity\Log;
@@ -16,7 +9,7 @@ use App\Exception\LoggerDatabaseException;
 use App\Repository\LogRepository;
 use Exception;
 
-final class LoggerDatabaseService
+final class LoggerDatabaseService implements LoggerInterface
 {
     private LogRepository $logRepository;
 
@@ -31,7 +24,7 @@ final class LoggerDatabaseService
      * @param string $line
      * @throws LoggerDatabaseException
      */
-    public function log(string $line)
+    public function log(string $line): void
     {
 
         try {

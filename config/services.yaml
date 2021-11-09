@@ -28,3 +28,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Controller\Admin\Post\AddPostController:
+        arguments:
+            - '@App\Service\Logger\LoggerDatabaseService'
+    App\Controller\Admin\Post\EditPostController:
+        arguments:
+            - '@App\Service\Logger\LoggerFileService'
