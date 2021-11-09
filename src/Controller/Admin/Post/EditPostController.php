@@ -8,8 +8,7 @@ use App\Context\Admin\Post\Form\Type\PostEditType;
 use App\Context\Admin\Post\TextRepository\PostFinder;
 use App\Context\Admin\Post\TextRepository\PostPersister;
 use App\Context\Admin\Post\Uploader\ImageUploader;
-use App\Service\Logger\LoggerDatabaseService;
-use App\Service\Logger\LoggerInterface;
+use App\Service\Logger\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,10 +19,10 @@ final class EditPostController extends AbstractController
     private PostPersister $postPersister;
     private EmailSender   $emailSender;
     private ImageUploader $imageUploader;
-    private LoggerInterface $loggerService;
+    private LoggerService $loggerService;
 
     public function __construct(
-        LoggerInterface $loggerService,
+        LoggerService $loggerService,
         PostFinder    $postFinder,
         PostPersister $postPersister,
         EmailSender   $emailSender,

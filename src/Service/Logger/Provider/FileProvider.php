@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Logger;
+namespace App\Service\Logger\Provider;
 
-use App\Exception\LoggerFileException;
+use App\Exception\LoggerException;
 use Exception;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class LoggerFileService implements LoggerInterface
+final class FileProvider implements LoggerInterface
 {
     private string $kernelLogDir;
     private string $kernelEnvironment;
@@ -24,7 +24,7 @@ final class LoggerFileService implements LoggerInterface
 
     /**
      * @param string $line
-     * @throws LoggerFileException
+     * @throws LoggerException
      */
     public function log(string $line): void
     {
@@ -37,7 +37,7 @@ final class LoggerFileService implements LoggerInterface
         }
         catch(Exception $e)
         {
-            throw LoggerFileException::fromWrittingInFile($file);
+            throw LoggerException::fromWrittingInFile($file);
         }
     }
 

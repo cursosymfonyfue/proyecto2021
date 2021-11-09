@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Logger;
+namespace App\Service\Logger\Provider;
 
 use App\Entity\Log;
-use App\Exception\LoggerDatabaseException;
+use App\Exception\LoggerException;
 use App\Repository\LogRepository;
 use Exception;
 
-final class LoggerDatabaseService implements LoggerInterface
+final class DatabaseProvider implements LoggerInterface
 {
     private LogRepository $logRepository;
 
@@ -22,7 +22,7 @@ final class LoggerDatabaseService implements LoggerInterface
 
     /**
      * @param string $line
-     * @throws LoggerDatabaseException
+     * @throws LoggerException
      */
     public function log(string $line): void
     {
@@ -34,7 +34,7 @@ final class LoggerDatabaseService implements LoggerInterface
         }
         catch(Exception $e)
         {
-            throw LoggerDatabaseException::fromPersist($line);
+            throw LoggerException::fromPersist($line);
         }
     }
 }

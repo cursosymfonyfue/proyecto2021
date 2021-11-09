@@ -28,9 +28,18 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    app.logger.provider.file:
+        class: App\Service\Logger\LoggerService
+        arguments:
+            - '@App\Service\Logger\Provider\FileProvider'
+    app.logger.provider.database:
+        class: App\Service\Logger\LoggerService
+        arguments:
+            - '@App\Service\Logger\Provider\DatabaseProvider'
+
     App\Controller\Admin\Post\AddPostController:
         arguments:
-            - '@App\Service\Logger\LoggerDatabaseService'
+            - '@app.logger.provider.database'
     App\Controller\Admin\Post\EditPostController:
         arguments:
-            - '@App\Service\Logger\LoggerFileService'
+            - '@app.logger.provider.file'
