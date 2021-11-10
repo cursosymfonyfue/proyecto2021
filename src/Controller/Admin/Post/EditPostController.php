@@ -49,7 +49,7 @@ final class EditPostController extends AbstractController
 
             $this->postPersister->persist($postEntity);
             $this->imageUploader->upload($form['image_file']->getData(), $postEntity);
-            $this->emailSender->sendModifiedPostEmail();
+            $this->emailSender->sendModifiedPostEmail($postEntity);
 
             $this->addFlash('success', 'Publicación editada satisfactoriamente');
             return $this->redirectToRoute('admin_post_index');

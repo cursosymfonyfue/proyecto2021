@@ -22,9 +22,9 @@ final class AddPostController extends AbstractController
     private ImageUploader            $imageUploader;
     private LoggerUserEntityResolver $loggerUserEntityResolver;
 
-    public function __construct(PostPersister $postPersister,
-                                EmailSender   $emailSender,
-                                ImageUploader $imageUploader,
+    public function __construct(PostPersister            $postPersister,
+                                EmailSender              $emailSender,
+                                ImageUploader            $imageUploader,
                                 LoggerUserEntityResolver $loggerUserEntityResolver)
     {
         $this->postPersister = $postPersister;
@@ -56,7 +56,7 @@ final class AddPostController extends AbstractController
             $this->postPersister->persist($postEntity);
 
             $this->imageUploader->upload($form['image_file']->getData(), $postEntity);
-            $this->emailSender->sendNewPostEMail();
+            $this->emailSender->sendNewPostEMail($postEntity);
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');
             return $this->redirectToRoute('admin_post_index');

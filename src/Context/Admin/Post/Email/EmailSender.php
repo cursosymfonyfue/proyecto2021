@@ -2,7 +2,7 @@
 
 namespace App\Context\Admin\Post\Email;
 
-use App\Context\Admin\Post\DTO\PostDTO;
+use App\Entity\Post;
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -18,9 +18,9 @@ final class EmailSender
     }
 
     // Sólo se envía e-mail con texto plano
-    public function sendNewPostEMail(PostDTO $postDTO): void
+    public function sendNewPostEMail(Post $postEntity): void
     {
-        $subject= sprintf('Pulicación "%s" creada.', $postDTO->getTitle());
+        $subject = sprintf('Pulicación "%s" creada.', $postEntity->getTitle());
 
         $email = new Email();
         $email->from('no-reply@myproject.ext')
@@ -34,10 +34,10 @@ final class EmailSender
 
     // Sólo se envía e-mail con texto plano y rico (HTML)
     // Tip: Librería HtmlConverter (convierte html a markdown)
-    public function sendModifiedPostEmail(PostDTO $postDTO) : void
+    public function sendModifiedPostEmail(Post $postEntity): void
     {
-        $subject= sprintf('Pulicación "%s" modificada.', $postDTO->getTitle());
-        $bodyEnHtml = sprintf('<p>Se ha <b>modificado</b> la publicación "%s"!</p>', $postDTO->getTitle());
+        $subject = sprintf('Pulicación "%s" modificada.', $postEntity->getTitle());
+        $bodyEnHtml = sprintf('<p>Se ha <b>modificado</b> la publicación "%s"!</p>', $postEntity->getTitle());
 
         $email = new Email();
         $email->from(new Address('no-reply@myproject.ext', 'My Project'))
