@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
  * @ORM\Table("category")
- * @UniqueEntity(fields={"name"}, message="Category with the same name already exists")
+ * @UniqueEntity(fields={"title"}, message="Category with the same name already exists")
  */
 class Category
 {
@@ -28,7 +28,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\Slug(fields={"name"}, updatable=true, separator="-", unique=true)
+     * @Gedmo\Slug(fields={"title"}, updatable=true, separator="-", unique=true)
      */
     private $slug;
 
