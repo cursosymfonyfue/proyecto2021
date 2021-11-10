@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Post;
 
-use App\Context\Admin\Post\TextRepository\PostFinder;
+use App\Context\Admin\Post\Repository\PostFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

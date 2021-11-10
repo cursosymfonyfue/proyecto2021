@@ -2,14 +2,14 @@
 
 namespace App\Context\Admin\Post\Form\DataMapper;
 
-use App\Context\Admin\Post\DTO\PostDTO;
+use App\Entity\Post;
 use Exception;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\DataMapper\DataMapper;
 
 final class PostDataMapper extends DataMapper implements DataMapperInterface
 {
-    /** @param PostDTO|null $viewData */
+    /** @param Post|null $viewData */
     public function mapDataToForms($viewData, iterable $forms): void
     {
         // there is no data yet, so nothing to prepopulate
@@ -18,8 +18,8 @@ final class PostDataMapper extends DataMapper implements DataMapperInterface
         }
 
         // invalid data type
-        if (!$viewData instanceof PostDTO) {
-            throw new Exception('expected PostDTO type object');
+        if (!$viewData instanceof Post) {
+            throw new Exception('expected Post type object');
         }
 
         /** @var FormInterface[] $forms */
@@ -37,7 +37,7 @@ final class PostDataMapper extends DataMapper implements DataMapperInterface
         }
     }
 
-    /** @param PostDTO|null $viewData */
+    /** @param Post|null $viewData */
     public function mapFormsToData(iterable $forms, &$viewData): void
     {
         /** @var FormInterface[] $forms */
@@ -57,7 +57,6 @@ final class PostDataMapper extends DataMapper implements DataMapperInterface
         // 1.- Subimos archivo
         // 2.- No se subió antes ninguna imagen
         if (null !== ($imagenFile = $forms['image_file']->getData())) {
-
             $name = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
             $ext = $imagenFile->guessExtension();
 

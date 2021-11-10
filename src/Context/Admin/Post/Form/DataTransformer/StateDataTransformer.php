@@ -2,7 +2,7 @@
 
 namespace App\Context\Admin\Post\Form\DataTransformer;
 
-use App\Context\Admin\Post\DTO\PostDTO;
+use App\Entity\Post;
 use Symfony\Component\Form\DataTransformerInterface;
 
 final class StateDataTransformer implements DataTransformerInterface
@@ -11,7 +11,7 @@ final class StateDataTransformer implements DataTransformerInterface
     public function transform($value)
     {
         // Transforma número a string (o null). Ej: 1 a "active"
-        $states = array_flip(PostDTO::STATES);
+        $states = array_flip(Post::STATES);
         return null !== $value ? $states[(string)$value] : null;
     }
 
@@ -19,6 +19,6 @@ final class StateDataTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         // Transforma string a número (o null). Ej: "active" a 1
-        return null !== $value ? (int)PostDTO::STATES[$value]: null;
+        return null !== $value ? (int)Post::STATES[$value] : null;
     }
 }
