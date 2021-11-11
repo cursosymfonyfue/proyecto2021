@@ -4,3 +4,4 @@ parameters:
     signal_as_array: '%env(piped:SIGNAL)%'
     last_env_file: '%env(LAST_ENV_FILE)%'
     my_secret: '%env(MY_SECRET)%'
+
