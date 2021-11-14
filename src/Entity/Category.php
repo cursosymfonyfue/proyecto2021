@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use App\Validator\NotAtCharacter;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -23,6 +25,8 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @NotAtCharacter()
      */
     private $title;
 
