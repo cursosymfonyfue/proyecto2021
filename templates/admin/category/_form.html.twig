@@ -1,0 +1,43 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="row mt-2">
+    <div class="col-2">
+        <p>Título *</p>
+    </div>
+    <div class="col-10">
+        {{ form_widget(form.title) }}
+        {{ form_errors(form.title) }}
+        {{ form_help(form.title) }}
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-2">
+        <p>Slug *</p>
+    </div>
+    <div class="col-10">
+        {{ form_widget(form.slug) }}
+        {{ form_errors(form.slug) }}
+        {{ form_help(form.slug) }}
+    </div>
+</div>
+
+<div class="row mt-3">
+
+    <div class="col-2">
+        &nbsp;{{ form_widget(form.save) }}
+    </div>
+    <div class="col-8">
+        {% if form.save_and_new is defined %}
+            {{ form_widget(form.save_and_new) }}
+        {% endif %}
+    </div>
+
+    <div class="col-auto">
+        &nbsp;<a href="{{ path('admin_category_index') }}">Cancelar</a>
+    </div>
+
+</div>
+
+
+{{ form_end(form) }}

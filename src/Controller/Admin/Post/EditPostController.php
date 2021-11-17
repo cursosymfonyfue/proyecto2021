@@ -2,11 +2,10 @@
 
 namespace App\Controller\Admin\Post;
 
-use App\Context\Admin\Post\DTO\PostDTO;
 use App\Context\Admin\Post\Email\EmailSender;
 use App\Context\Admin\Post\Form\Type\PostEditType;
-use App\Context\Admin\Post\TextRepository\PostFinder;
-use App\Context\Admin\Post\TextRepository\PostPersister;
+use App\Context\Admin\Post\Repository\PostFinder;
+use App\Context\Admin\Post\Repository\PostPersister;
 use App\Context\Admin\Post\Uploader\ImageUploader;
 use App\Service\Logger\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,10 +40,9 @@ final class EditPostController extends AbstractController
      */
     public function __invoke(Request $request, int $id)
     {
-        $postArray = $this->postFinder->findById($id);
-        $postDTO = PostDTO::createFromParams($postArray);
+        $postEntity = $this->postFinder->findById($id);
 
-        $form = $this->createForm(PostEditType::class, $postDTO);
+        $form = $this->createForm(PostEditType::class, $postEntity);
         // Aquí todos los datos de la request:
         // dump($_REQUEST); die();
         $form->handleRequest($request);
@@ -53,11 +51,11 @@ final class EditPostController extends AbstractController
 
         // Aquí hay parte que estaría mejor encapsularla en un Handler => "S" de SOLID al poder!
         if ($form->isSubmitted() && $form->isValid()) {
-            $postDTO = $form->getData();
+            $postEntity = $form->getData();
 
-            $this->postPersister->persist($postDTO);
-            $this->imageUploader->upload($form['image_file']->getData(), $postDTO);
-            $this->emailSender->sendModifiedPostEmail($postDTO);
+            $this->postPersister->persist($postEntity);
+            $this->imageUploader->upload($form['image_file']->getData(), $postEntity);
+            $this->emailSender->sendModifiedPostEmail($postEntity);
 
             $this->addFlash('success', 'Publicación editada satisfactoriamente');
 

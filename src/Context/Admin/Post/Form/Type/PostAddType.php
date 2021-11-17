@@ -2,10 +2,14 @@
 
 namespace App\Context\Admin\Post\Form\Type;
 
-use App\Context\Admin\Post\DTO\PostDTO;
 use App\Context\Admin\Post\Form\DataMapper\PostDataMapper;
+use App\Context\Admin\Post\Form\DataTransformer\NullToBlankTransformer;
 use App\Context\Admin\Post\Form\DataTransformer\StateDataTransformer;
 use App\Context\Admin\Post\Resolver\MonthsResolver;
+use App\Entity\Category;
+use App\Entity\Post;
+use App\Repository\CategoryRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -23,14 +27,20 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PostAddType extends AbstractType
 {
-    private PostDataMapper $postDataMapper;
-    private StateDataTransformer  $stateDataTransformer;
+    private PostDataMapper         $postDataMapper;
+    private StateDataTransformer   $stateDataTransformer;
+    private CategoryRepository     $categoryRepository;
+    private NullToBlankTransformer $nullToBlankTransformer;
 
-    public function __construct(PostDataMapper $postDataMapper,
-                                StateDataTransformer  $stateDataTransformer)
+    public function __construct(PostDataMapper         $postDataMapper,
+                                StateDataTransformer   $stateDataTransformer,
+                                CategoryRepository     $categoryRepository,
+                                NullToBlankTransformer $nullToBlankTransformer)
     {
         $this->postDataMapper = $postDataMapper;
         $this->stateDataTransformer = $stateDataTransformer;
+        $this->categoryRepository = $categoryRepository;
+        $this->nullToBlankTransformer = $nullToBlankTransformer;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -46,12 +56,19 @@ class PostAddType extends AbstractType
             'help_html' => true,
             'constraints' => [ new NotBlank()]
         ]);
+        $builder->get('title')->addModelTransformer($this->nullToBlankTransformer);
 
         $builder->add('body', TextareaType::class);
+        $builder->get('body')->addModelTransformer($this->nullToBlankTransformer);
 
         // Ver línea 370 Symfony\Component\Form\Extension\Core\Type\ChoiceType para ver los parámetros admitidos
         $states = ['Seleccione Estado' => null, 'Activo' => 'active', 'Desactivado' => 'disabled'];
-        $builder->add('state', ChoiceType::class, ['choices' => $states]);
+        $builder->add('state', ChoiceType::class, [
+                'choices' => $states,
+                'multiple' => false,
+                'expanded' => true,
+            ]
+        );
 
         $builder->add('availability_day', TextType::class, ['mapped' => false]);
         $builder->add('availability_month', ChoiceType::class, ['mapped' => false]);
@@ -59,6 +76,14 @@ class PostAddType extends AbstractType
 
         $builder->add('image', HiddenType::class);
         $builder->add('image_file', FileType::class, ['mapped' => false]);
+
+        $builder->add('category', EntityType::class,
+            [
+                'class' => Category::class,
+                'choices' => $this->categoryRepository->findAll(),
+                'choice_label' => 'title',
+                'placeholder' => '',
+            ]);
 
         $builder->add('recaptchaToken', HiddenType::class,
             [
@@ -94,7 +119,7 @@ class PostAddType extends AbstractType
         // echo "estoy en pre-set-data <br>";
 
         $form = $event->getForm();
-        /** @var PostDTO $data */
+        /** @var Post $data */
         $data = $event->getData();
 
         // Add years
@@ -112,16 +137,16 @@ class PostAddType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        /** @var PostDTO $postDTO */
-        $postDTO = $form->getData();
+        /** @var Post $postEntity */
+        $postEntity = $form->getData();
 
-        $view->vars['image_path'] = (!empty($postDTO->getImage())) ? '/uploads/' . $postDTO->getImage() : '';
+        $view->vars['image_path'] = (!empty($postEntity->getImage())) ? '/uploads/' . $postEntity->getImage() : '';
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => PostDTO::class,
+            'data_class' => Post::class,
         ]);
     }
 }

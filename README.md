@@ -47,6 +47,13 @@ Usuario/Clave: admin/password
 
 http://localhost:8025
 
+**Inicialización de base de datos en entorno dev**
+
+
+php bin/console doctrine:schema:drop --force --env=dev
+php bin/console doctrine:schema:update --force --env=dev
+php bin/console hautelook:fixtures:load --purge-with-truncate --env=dev
+
 ___
 
 Urls disponibles básicas:
