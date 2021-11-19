@@ -67,6 +67,7 @@ class Post
         $this->comments = new ArrayCollection();
         $this->availableAt = null;
         $this->image = null;
+        $this->user = 1;
     }
 
     public function getId(): ?int
