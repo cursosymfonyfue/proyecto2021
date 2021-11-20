@@ -5,6 +5,7 @@ namespace App\Tests\Unitary\RelevanceCalculator\Helper;
 use App\Util\RelevanceCalculator\Helper\CoefficientCalculator;
 use PHPUnit\Framework\TestCase;
 
+// ./vendor/phpunit/phpunit/phpunit ./tests/Unitary/RelevanceCalculator/Helper/CoefficientCalculatorTest.php
 final class CoefficientCalculatorTest extends TestCase
 {
     /**
@@ -23,10 +24,11 @@ final class CoefficientCalculatorTest extends TestCase
     {
         return [
             [0, 0, 0, 0],
-            [1, 1, 1, 0],
-            [10, 10, 1, 9],
-            [20, 20, 1, 16],
-            [20, 10, 2, 8],
+            [1, 1, 1, 1.75],
+            [10, 10, 1, 17.5],
+            [20, 20, 1, 35],
+            [20, 10, 2, 16.67],
+            [30, 20, 2, 28.33],
         ];
     }
 }

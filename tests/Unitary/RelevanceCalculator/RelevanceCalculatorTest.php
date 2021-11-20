@@ -5,6 +5,7 @@ namespace App\Tests\Unitary\RelevanceCalculator;
 use App\Util\RelevanceCalculator\RelevanceCalculator;
 use PHPUnit\Framework\TestCase;
 
+// ./vendor/phpunit/phpunit/phpunit ./tests/Unitary/RelevanceCalculator/RelevanceCalculatorTest.php
 final class RelevanceCalculatorTest extends TestCase
 {
     /**
@@ -21,7 +22,9 @@ final class RelevanceCalculatorTest extends TestCase
     {
         return [
             [0, 0, 0, 0],
-            [20, 20, 1, 13],
+            [20, 20, 1, 34],
+            [10000, 1, 1, 2584],
+            [50000, 1, 1, 2584],
         ];
     }
 }

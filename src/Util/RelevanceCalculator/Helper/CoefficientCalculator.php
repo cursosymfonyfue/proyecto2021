@@ -6,6 +6,6 @@ final class CoefficientCalculator
 {
     public static function calculate(int $visits, int $likes, int $days) : float
     {
-        return $likes ^ 2 * sqrt($visits) / ($days + 1);
+        return round(($likes*2 + $visits*1.5) / ($days+1), 2);
     }
 }
