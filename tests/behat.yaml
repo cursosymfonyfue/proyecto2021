@@ -1,0 +1,49 @@
+#  ./vendor/behat/behat/bin/behat --config=tests/behat.yaml
+imports:
+    - tests/Functional/Admin/Routing/behat.yaml
+
+default:
+
+    extensions:
+
+        #######################################
+        # EXTENSIONES BÁSICAS
+        #######################################
+
+        # PEGAMENTO ENTRE SYMFONY Y BEHAT
+        FriendsOfBehat\SymfonyExtension:
+
+            bootstrap: "tests/bootstrap.php"
+            kernel:
+                class: App\Kernel
+                environment: test
+                debug: true
+
+        # EXTENSIONES PARA WEBTESTING
+        Behat\MinkExtension:
+
+            default_session: symfony
+            javascript_session: selenium2
+
+            sessions:
+                default:
+                    symfony: ~
+                symfony:
+                    symfony: ~
+                selenium2:
+                    selenium2:
+                        wd_host: "http://localhost:4444/wd/hub"
+                        capabilities: {"browserName": "chrome", "browser": "chrome", "version": "74", 'chrome': {'switches':['--no-sandbox', '--headless'], 'prefs': {'foo': 'bar'}}}
+            browser_name: "chrome"
+
+        #######################################
+        # OTRAS EXTENSIONES
+        #######################################
+
+        # REINTENTO AUTOMÁTICO
+        Chekote\BehatRetryExtension:
+            timeout: 10
+            strictKeywords: false
+
+        # STEP DEFINITIONS ADICIONALES (CONTEXTOS) A LAS PROPORCIONADAS POR DEFECTO POR BEHAT
+        Behatch\Extension: ~

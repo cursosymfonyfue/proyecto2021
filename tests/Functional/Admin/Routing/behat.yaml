@@ -1,0 +1,7 @@
+default:
+    suites:
+        admin_routing:
+            paths: [ ./tests/Functional/Admin/Routing/Feature ]
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Functional\Admin\Routing\Context\AdminContext

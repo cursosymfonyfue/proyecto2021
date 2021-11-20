@@ -35,6 +35,23 @@ services:
             MYSQL_USER: admin
             MYSQL_PASSWORD: password
         user: mysql
+        ports:
+            - '3306:3306'
+
+    mariadb_test:
+        image: mariadb:10.4
+        container_name: csf_mariadb_test
+        volumes:
+            -  ./../docker/mariadb_test/migrations:/docker-entrypoint-initdb.d
+            -  ./../docker/mariadb_test/data/db:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: curso_symfony_fue_test
+            MYSQL_USER: test_user
+            MYSQL_PASSWORD: test_password
+        user: mysql
+        ports:
+            - '13306:3306'
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -55,3 +72,27 @@ services:
         ports:
             - 1025:1025 # smtp server
             - 8025:8025 # web ui
+
+    # ###################
+    # TESTING SETUP.Begin
+    # ###################
+    chrome:
+        image: selenium/node-chrome:4.1.0-prerelease-20211105
+        shm_size: 2gb
+        depends_on:
+            - selenium-hub
+        environment:
+            - SE_EVENT_BUS_HOST=selenium-hub
+            - SE_EVENT_BUS_PUBLISH_PORT=4442
+            - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+    selenium-hub:
+        image: selenium/hub:4.1.0-prerelease-20211105
+        container_name: selenium-hub
+        ports:
+            - "4442:4442"
+            - "4443:4443"
+            - "4444:4444"
+    # ###################
+    # TESTING SETUP.End
+    # ###################
