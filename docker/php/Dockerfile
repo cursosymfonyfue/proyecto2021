@@ -36,6 +36,12 @@ RUN apt-get update \
 # INSTALL REDIS
 RUN pecl install redis && docker-php-ext-enable redis
 
+# INSTALL XDEBUG
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY conf/90-xdebug.ini "{PHP_INIT_DIR}/conf.d"
+#RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/cond.f/docker-php-ext-xdebug.ini && \
+#    echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/cond.f/docker-php-ext-xdebug.ini
+
 RUN docker-php-ext-install pdo pdo_mysql opcache zip
 
 COPY conf/php.ini /usr/local/etc/php/php.ini
@@ -56,7 +62,8 @@ RUN chown www-data:www-data /var/www/html/var/log
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 
+
 EXPOSE 9000
 
-ENTRYPOINT ["sh", "./docker/php/init.sh"]
+#ENTRYPOINT ["sh", "./docker/php/init.sh"]
 ##################################################################################################################
