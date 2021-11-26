@@ -21,6 +21,7 @@
 
 
 docker/mariadb/data/db
+docker/mariadb_test/data/db
 docker/redis/data
 .idea
 .DS_Store

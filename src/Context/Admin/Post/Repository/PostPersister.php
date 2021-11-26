@@ -3,7 +3,6 @@
 namespace App\Context\Admin\Post\Repository;
 
 use App\Entity\Post;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class PostPersister
