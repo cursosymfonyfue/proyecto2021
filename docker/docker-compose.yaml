@@ -18,6 +18,8 @@ services:
     php:
         build: php/
         container_name: csf_php
+#        extra_hosts:
+#            -   "host.docker.internal:host-gateway"
         volumes:
             - ./../:/var/www/html
         depends_on:
