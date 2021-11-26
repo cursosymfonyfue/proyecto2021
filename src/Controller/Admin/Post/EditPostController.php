@@ -7,6 +7,7 @@ use App\Context\Admin\Post\Form\Type\PostEditType;
 use App\Context\Admin\Post\Repository\PostFinder;
 use App\Context\Admin\Post\Repository\PostPersister;
 use App\Context\Admin\Post\Uploader\ImageUploader;
+use App\Service\Logger\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,16 +18,21 @@ final class EditPostController extends AbstractController
     private PostPersister $postPersister;
     private EmailSender   $emailSender;
     private ImageUploader $imageUploader;
+    private LoggerService $loggerService;
 
-    public function __construct(PostFinder    $postFinder,
-                                PostPersister $postPersister,
-                                EmailSender   $emailSender,
-                                ImageUploader $imageUploader)
+    public function __construct(
+        LoggerService $loggerService,
+        PostFinder    $postFinder,
+        PostPersister $postPersister,
+        EmailSender   $emailSender,
+        ImageUploader $imageUploader
+    )
     {
         $this->postFinder = $postFinder;
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
         $this->imageUploader = $imageUploader;
+        $this->loggerService = $loggerService;
     }
 
     /**
@@ -52,6 +58,9 @@ final class EditPostController extends AbstractController
             $this->emailSender->sendModifiedPostEmail($postEntity);
 
             $this->addFlash('success', 'Publicación editada satisfactoriamente');
+
+            $this->loggerService->log('Edit post: '. $id);
+
             return $this->redirectToRoute('admin_post_index');
         }
 
