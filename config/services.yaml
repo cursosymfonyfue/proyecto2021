@@ -40,7 +40,7 @@ services:
 
     App\Controller\Admin\Post\AddPostController:
         arguments:
-            - '@app.logger.provider.database'
+            $loggerService: '@app.logger.provider.database'
     App\Controller\Admin\Post\EditPostController:
         arguments:
             - '@app.logger.provider.file'
