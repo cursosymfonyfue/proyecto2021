@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-// bin/console app:env-var-checker
+// XDEBUG_MODE=off bin/console app:env-var-checker
 class EnvVarCheckerCommand extends Command
 {
     protected static $defaultName = 'app:env-var-checker';

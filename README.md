@@ -54,7 +54,7 @@ php bin/console doctrine:schema:drop --force --env=dev
 
 php bin/console doctrine:schema:update --force --env=dev
 
-php bin/console hautelook:fixtures:load --purge-with-truncate --env=dev
+XDEBUG_MODE=off php bin/console hautelook:fixtures:load --purge-with-truncate --env=dev
 
 ___
 

@@ -44,7 +44,7 @@ RUN docker-php-ext-install pdo pdo_mysql opcache zip
 COPY conf/php.ini /usr/local/etc/php/php.ini
 COPY conf/php-fpm-pool.conf /usr/local/etc/php/pool.d/www.conf
 COPY conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-# COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 
 RUN echo "www-data ALL=(ALL) ALL" > /etc/sudoers
