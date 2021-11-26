@@ -8,7 +8,11 @@ use App\Context\Admin\Post\Repository\PostPersister;
 use App\Context\Admin\Post\Resolver\LoggerUserEntityResolver;
 use App\Context\Admin\Post\Uploader\ImageUploader;
 use App\Entity\Post;
+use App\Service\LoggerDatabaseService;
+use App\Service\LoggerInterface;
+use App\Service\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,16 +25,21 @@ final class AddPostController extends AbstractController
     private EmailSender              $emailSender;
     private ImageUploader            $imageUploader;
     private LoggerUserEntityResolver $loggerUserEntityResolver;
+    private LoggerInterface $logger;
 
-    public function __construct(PostPersister            $postPersister,
+
+    public function __construct(LoggerInterface $logger,
+                                PostPersister            $postPersister,
                                 EmailSender              $emailSender,
                                 ImageUploader            $imageUploader,
-                                LoggerUserEntityResolver $loggerUserEntityResolver)
+                                LoggerUserEntityResolver $loggerUserEntityResolver
+                                )
     {
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
         $this->imageUploader = $imageUploader;
         $this->loggerUserEntityResolver = $loggerUserEntityResolver;
+        $this->logger = $logger;
     }
 
     /**
@@ -59,9 +68,15 @@ final class AddPostController extends AbstractController
             $this->emailSender->sendNewPostEMail($postEntity);
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');
+
+            //
+            $this->logger->writeInLog();
+            //
+
             return $this->redirectToRoute('admin_post_index');
         }
 
         return $this->render('admin/post/add.html.twig', ['form' => $form->createView()]);
     }
+
 }
