@@ -8,6 +8,7 @@ use App\Context\Admin\Post\Repository\PostPersister;
 use App\Context\Admin\Post\Resolver\LoggerUserEntityResolver;
 use App\Context\Admin\Post\Uploader\ImageUploader;
 use App\Entity\Post;
+use App\Service\Logger\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,16 +22,19 @@ final class AddPostController extends AbstractController
     private EmailSender              $emailSender;
     private ImageUploader            $imageUploader;
     private LoggerUserEntityResolver $loggerUserEntityResolver;
+    private LoggerService $loggerService;
 
     public function __construct(PostPersister            $postPersister,
                                 EmailSender              $emailSender,
                                 ImageUploader            $imageUploader,
-                                LoggerUserEntityResolver $loggerUserEntityResolver)
+                                LoggerUserEntityResolver $loggerUserEntityResolver,
+                                LoggerService $loggerService)
     {
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
         $this->imageUploader = $imageUploader;
         $this->loggerUserEntityResolver = $loggerUserEntityResolver;
+        $this->loggerService = $loggerService;
     }
 
     /**
@@ -59,6 +63,9 @@ final class AddPostController extends AbstractController
             $this->emailSender->sendNewPostEMail($postEntity);
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');
+
+            $this->loggerService->log('New post');
+
             return $this->redirectToRoute('admin_post_index');
         }
 
