@@ -64,6 +64,18 @@ services:
         links:
             - mariadb
 
+    phpmyadmin_test:
+        image: phpmyadmin/phpmyadmin
+        container_name: csf_phpmyadmin_test
+        environment:
+            PMA_HOST: mariadb_test
+            PMA_PORT: 3306
+        ports:
+            - '8081:80'
+        links:
+            - mariadb_test
+
+
     mailhog:
         container_name: csf_mailhog
         image: mailhog/mailhog

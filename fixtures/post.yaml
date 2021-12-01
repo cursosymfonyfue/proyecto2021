@@ -17,3 +17,11 @@ App\Entity\Post:
         state: 1
         category: '@category_space_x'
         availableAt: <((new DateTime())->add(DateInterval::createFromDateString('+1 days')))>
+
+    post_3:
+        title: 'The posts!'
+        body: 'This is anoter description'
+        user: '@author_user'
+        state: 1
+        category: '@category_space_x'
+        availableAt: <((new DateTime())->add(DateInterval::createFromDateString('-2 days')))>

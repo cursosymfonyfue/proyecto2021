@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    {{ include('common/page/_navigation.html.twig') }}
+    <div class="row">
+        <div class="col-xs-10">
+            {{ render(controller('App\\Controller\\Common\\PostsController::__invoke')) }}
+        </div>
+        <div class="col-xs-2">
+            {{ render(controller('App\\Controller\\Common\\CategoriesController::__invoke')) }}
+        </div>
+    </div>
+{% endblock %}

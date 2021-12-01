@@ -62,6 +62,9 @@ class Post
      */
     private ?Category $category;
 
+    /** @ORM\Column(type="smallint", nullable=false, options={"default":0}) */
+    private int $likes = 0;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -183,5 +186,15 @@ class Post
     public function setCategory(?Category $category): void
     {
         $this->category = $category;
+    }
+
+    public function getLikes(): int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): void
+    {
+        $this->likes = $likes;
     }
 }

@@ -22,13 +22,22 @@ class PostRepository extends ServiceEntityRepository
     public function findPostBySearchCriteria(string $searchTerm)
     {
         $query = $this->createQueryBuilder('p')
-            ->join('p.user', 'u')
-            ->orWhere('u.username LIKE :searchTerm')
-            ->orWhere('p.title LIKE :searchTerm')
-            ->orWhere('p.body LIKE :searchTerm')
-            ->setParameter('searchTerm', "%$searchTerm%")
-            ->getQuery();
+                      ->join('p.user', 'u')
+                      ->orWhere('u.username LIKE :searchTerm')
+                      ->orWhere('p.title LIKE :searchTerm')
+                      ->orWhere('p.body LIKE :searchTerm')
+                      ->setParameter('searchTerm', "%$searchTerm%")
+                      ->getQuery();
 
         return $query->getResult();
+    }
+
+    public function incrementNumberOfLikesByOne(int $id): void
+    {
+        if (empty($id)) {
+            return;
+        }
+
+        $this->getEntityManager()->getConnection()->executeQuery('UPDATE post SET likes=likes+1');
     }
 }
