@@ -4,7 +4,7 @@ namespace App\Tests\Unitary\Stack;
 
 use PHPUnit\Framework\TestCase;
 
-// ./vendor/phpunit/phpunit/phpunit tests/Unitary/Stack/StackTest
+// ./vendor/phpunit/phpunit/phpunit tests/Unitary/Stack/StackTest.php
 // ./vendor/phpunit/phpunit/phpunit --filter=testPushAndPop
 final class StackTest extends TestCase
 {
