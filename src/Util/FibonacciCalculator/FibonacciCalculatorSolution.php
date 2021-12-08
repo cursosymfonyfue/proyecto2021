@@ -2,7 +2,7 @@
 
 namespace App\Util\FibonacciCalculator;
 
-final class FibonacciCalculator
+final class FibonacciCalculatorSolution
 {
     public static function calculate($index) : int
     {

@@ -2,7 +2,7 @@
 
 namespace App\Util\RelevanceCalculator;
 
-use App\Util\FibonacciCalculator\FibonacciCalculator;
+use App\Util\FibonacciCalculator\FibonacciCalculatorSolution;
 use App\Util\RelevanceCalculator\Helper\CoefficientCalculator;
 
 final class RelevanceCalculator
@@ -15,12 +15,11 @@ final class RelevanceCalculator
 
         $i = $previous = 0;
         while (true) {
-            $fibonacci = FibonacciCalculator::calculate($i++);
+            $fibonacci = FibonacciCalculatorSolution::calculate($i++);
             if ($fibonacci > $coefficient) {
                 return $previous;
             }
 
-                echo "ss".$i . PHP_EOL;
             if ($i >= self::MAX_SEQUENCES) {
                 return $fibonacci;
             }
