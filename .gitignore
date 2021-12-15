@@ -27,3 +27,7 @@ docker/redis/data
 .DS_Store
 ._*
 /public/uploads
+
+###> friends-of-behat/symfony-extension ###
+/behat.yml
+###< friends-of-behat/symfony-extension ###

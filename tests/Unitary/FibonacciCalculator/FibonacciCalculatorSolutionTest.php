@@ -2,10 +2,10 @@
 
 namespace App\Tests\Unitary\FibonacciCalculator;
 
-use App\Util\FibonacciCalculator\FibonacciCalculator;
+use App\Util\FibonacciCalculator\FibonacciCalculatorSolution;
 use PHPUnit\Framework\TestCase;
 
-final class FibonacciCalculatorTest extends TestCase
+final class FibonacciCalculatorSolutionTest extends TestCase
 {
     /**
      * @test
@@ -13,7 +13,7 @@ final class FibonacciCalculatorTest extends TestCase
      */
     public function fibonacciCalculator($index, $expectedResult)
     {
-        $actualResult = FibonacciCalculator::calculate($index);
+        $actualResult = FibonacciCalculatorSolution::calculate($index);
 
         $this->assertEquals($expectedResult, $actualResult);
     }

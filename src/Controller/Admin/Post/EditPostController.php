@@ -7,6 +7,7 @@ use App\Context\Admin\Post\Form\Type\PostEditType;
 use App\Context\Admin\Post\Repository\PostFinder;
 use App\Context\Admin\Post\Repository\PostPersister;
 use App\Context\Admin\Post\Uploader\ImageUploader;
+use App\Security\Voter\PostVoter;
 use App\Service\Logger\LoggerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +42,8 @@ final class EditPostController extends AbstractController
     public function __invoke(Request $request, int $id)
     {
         $postEntity = $this->postFinder->findById($id);
+
+        $this->denyAccessUnlessGranted(PostVoter::EDIT, $postEntity, 'Este post no te pertenece');
 
         $form = $this->createForm(PostEditType::class, $postEntity);
         // Aquí todos los datos de la request:

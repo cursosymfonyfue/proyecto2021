@@ -2,4 +2,4 @@ App\Entity\User:
     author_user:
         username: 'sabin'
         email: '<email()>'
-
+        password: 'sabin'

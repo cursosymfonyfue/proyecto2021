@@ -38,15 +38,15 @@ RUN pecl install redis && docker-php-ext-enable redis
 
 # INSTALL XDEBUG
 RUN pecl install xdebug && docker-php-ext-enable xdebug
-COPY conf/90-xdebug.ini "{PHP_INIT_DIR}/conf.d"
-#RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/cond.f/docker-php-ext-xdebug.ini && \
-#    echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/cond.f/docker-php-ext-xdebug.ini
 
 RUN docker-php-ext-install pdo pdo_mysql opcache zip
 
 COPY conf/php.ini /usr/local/etc/php/php.ini
 COPY conf/php-fpm-pool.conf /usr/local/etc/php/pool.d/www.conf
 COPY conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
+# ENABLE XDEBUG BY UNCOMMENTING THE FOLLOWING LINE:
+# COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 
 RUN echo "www-data ALL=(ALL) ALL" > /etc/sudoers
