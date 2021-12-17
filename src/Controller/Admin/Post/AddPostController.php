@@ -64,7 +64,7 @@ final class AddPostController extends AbstractController
 
             $this->addFlash('success', 'Publicación creada satisfactoriamente');
 
-            $this->loggerService->log('New post');
+            $this->loggerService->log('Nuevo post curso Symfony FUE ' . date("Y-m-d H:i:s"));
 
             return $this->redirectToRoute('admin_post_index');
         }
