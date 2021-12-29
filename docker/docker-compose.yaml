@@ -15,6 +15,7 @@ services:
             - php
             - mariadb
 
+
     php:
         build: php/
         container_name: csf_php
@@ -24,6 +25,7 @@ services:
             - ./../:/var/www/html
         depends_on:
             - mariadb
+        user: www-data
 
     mariadb:
         image: mariadb:10.4
