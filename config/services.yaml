@@ -37,10 +37,15 @@ services:
         class: App\Service\Logger\LoggerService
         arguments:
             - '@App\Service\Logger\Provider\DatabaseProvider'
+    app.logger.provider.monolog:
+        class: App\Service\Logger\LoggerService
+        arguments:
+            - '@App\Service\Logger\Provider\MonologProvider'
 
     App\Controller\Admin\Post\AddPostController:
         arguments:
-            $loggerService: '@app.logger.provider.database'
+            $loggerService: '@app.logger.provider.monolog'
+            #$loggerService: '@app.logger.provider.database'
     App\Controller\Admin\Post\EditPostController:
         arguments:
             - '@app.logger.provider.file'
