@@ -25,10 +25,29 @@
                 </div>
             </li>
             {% endif %}
+            <li>
+                <div id="phrase-of-the-day-container" class="mt-2">
+                </div>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{{ url('search') }}" method="get">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ app.request.get('q') }}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
+    <script>
+        jQuery(function($){
+            setTimeout(() => {
+
+                var phrases = [
+                    'Give it a try',
+                    'With pain comes strength',
+                    'It\'s always too early to quit',
+                    'Enthusiasm moves the world',
+                ]
+
+                $('#phrase-of-the-day-container').html('<span class="phrase-of-the-day" style="font-size: 12px; color: green">Phrase of the day: ' + phrases[Math.floor( Math.random() * 4 )] + '</span>');
+            }, 1000);
+        });
+    </script>
 </nav>
