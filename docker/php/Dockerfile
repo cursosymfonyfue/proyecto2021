@@ -34,9 +34,9 @@ RUN apt-get update \
     libzip-dev
 
 # Install GoogleChromeStable
-RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'   \
-    sudo apt-get update \
-    sudo apt-get install google-chrome-stable
+#RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'   \
+#    sudo apt-get update \
+#    sudo apt-get install google-chrome-stable
 
 RUN curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
