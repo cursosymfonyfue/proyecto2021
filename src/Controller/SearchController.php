@@ -8,17 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DashboardController extends AbstractController
+class SearchController extends AbstractController
 {
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/search", name="search")
      */
-    public function index(Request $request, PostRepository $postRepository): Response
+    public function __invoke(Request $request, PostRepository $postRepository): Response
     {
-        $searchTerm = $request->query->get('search', '');
+        $searchTerm = $request->query->get('q', '');
         $posts = $postRepository->findPostBySearchCriteria($searchTerm);
 
-        return $this->render('dashboard/index.html.twig', [
+        return $this->render('search/index.html.twig', [
             'posts' => $posts,
         ]);
     }

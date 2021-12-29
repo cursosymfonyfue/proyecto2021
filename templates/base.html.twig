@@ -20,6 +20,9 @@
 
     </head>
     <body>
+        {% block navigation %}
+            {{ include('common/page/_navigation.html.twig') }}
+        {% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>

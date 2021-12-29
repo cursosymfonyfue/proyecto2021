@@ -10,6 +10,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('contact_form_04') }}">Contact</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('app_register') }}">Registration</a>
+            </li>
+            {% if app.user %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Admin
@@ -20,9 +24,10 @@
                     <a class="dropdown-item" href="{{ url('admin_category_index') }}">Category</a>
                 </div>
             </li>
+            {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="{{ url('home_page') }}" method="get">
-            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ app.request.get('search') }}">
+        <form class="form-inline my-2 my-lg-0" action="{{ url('search') }}" method="get">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ app.request.get('q') }}">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>

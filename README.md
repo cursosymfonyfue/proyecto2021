@@ -30,7 +30,7 @@ exec -it -u www-data csf_php composer
 exec -it -u www-data csf_php symfony
 ```
 
-Dentro del directorio dpcker/mariadb/migrations hay un dump de base de datos básico. 
+Dentro del directorio docker/mariadb/migrations hay un dump de base de datos básico. 
 Este dump se ejecutará la primera vez que se construya el contenedor, generará la base de datos del proyecto y la de mysql con los usuarios y contraseñas correspondientes.
 
 **Acceso a la web desde un navegador:**
@@ -50,9 +50,11 @@ http://localhost:8025
 **Inicialización de base de datos en entorno dev**
 
 
-php bin/console doctrine:schema:drop --force --env=dev
+XDEBUG_MODE=off php bin/console doctrine:schema:drop --force --env=dev
 
-php bin/console doctrine:schema:update --force --env=dev
+XDEBUG_MODE=off php bin/console doctrine:schema:update --force --env=dev
+
+XDEBUG_MODE=off php bin/console doctrine:fixtures:load --env=dev
 
 XDEBUG_MODE=off php bin/console hautelook:fixtures:load --purge-with-truncate --env=dev
 

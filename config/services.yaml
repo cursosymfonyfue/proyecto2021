@@ -60,3 +60,5 @@ services:
             - "@app.recaptcha.google_provider"
             - "%env(bool:GOOGLE_RECAPTCHA_ENABLED)%"
     App\Service\Recaptcha\RecaptchaCheckerService: "@app.recaptcha"
+
+    App\DataFixtures\HashPasswordProvider: ~
