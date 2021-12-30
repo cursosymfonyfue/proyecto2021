@@ -1,0 +1,14 @@
+default:
+    suites:
+
+        frontend_routing:
+            paths: [ ./tests/Functional/Frontend/BehatMink/Feature ]
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Functional\Frontend\BehatMink\Context\FrontendContext
+
+        home_page_likes:
+            paths: [ ./tests/Functional/Frontend/BehatMink/Feature ]
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Functional\Frontend\BehatMink\Context\FrontendContext

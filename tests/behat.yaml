@@ -1,6 +1,7 @@
 #  ./vendor/behat/behat/bin/behat --config=tests/behat.yaml
 imports:
     - tests/Functional/Admin/Routing/behat.yaml
+    - tests/Functional/Frontend/BehatMink/behat.yaml
 
 default:
 
@@ -33,7 +34,7 @@ default:
                 selenium2:
                     selenium2:
                         wd_host: "http://localhost:4444/wd/hub"
-                        capabilities: {"browserName": "chrome", "browser": "chrome", "version": "74", 'chrome': {'switches':['--no-sandbox', '--headless'], 'prefs': {'foo': 'bar'}}}
+                        capabilities: {"browserName": "chrome", "browser": "chrome", "version": "96", 'chrome': {'switches':['--no-sandbox', '--headless'], 'prefs': {'foo': 'bar'}}}
             browser_name: "chrome"
 
         #######################################

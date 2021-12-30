@@ -40,33 +40,53 @@ RUN apt-get update \
 RUN curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 RUN rm google-chrome-stable_current_amd64.deb
+
+ENV PANTHER_NO_SANDBOX 1
+ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage --disable-gpu --disable-extensions --remote-debugging-port=9222'
 ###############
 
 
 #################################
 # Install Firefox and GeckoDriver
 #################################
-ENV GECKODRIVER_VER v0.30.0
-ENV FIREFOX_VER 95.0
-
-# Add latest FireFox
-RUN set -x \
-   && apt install -y \
-       libx11-xcb1 \
-       libdbus-glib-1-2 \
-   && curl -sSLO https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREFOX_VER}/linux-x86_64/en-US/firefox-${FIREFOX_VER}.tar.bz2 \
-   && tar -jxf firefox-* \
-   && mv firefox /opt/ \
-   && chmod 755 /opt/firefox \
-   && chmod 755 /opt/firefox/firefox
-
-# Add geckodriver
-RUN set -x \
-   && curl -sSLO https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VER}/geckodriver-${GECKODRIVER_VER}-linux64.tar.gz \
-   && tar zxf geckodriver-*.tar.gz \
-   && mv geckodriver /usr/bin/
+#ENV GECKODRIVER_VER v0.30.0
+#ENV FIREFOX_VER 95.0
+#
+## Add latest FireFox
+#RUN set -x \
+#   && apt install -y \
+#       libx11-xcb1 \
+#       libdbus-glib-1-2 \
+#   && curl -sSLO https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREFOX_VER}/linux-x86_64/en-US/firefox-${FIREFOX_VER}.tar.bz2 \
+#   && tar -jxf firefox-* \
+#   && mv firefox /opt/ \
+#   && chmod 755 /opt/firefox \
+#   && chmod 755 /opt/firefox/firefox
+#
+## Add geckodriver
+#RUN set -x \
+#   && curl -sSLO https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VER}/geckodriver-${GECKODRIVER_VER}-linux64.tar.gz \
+#   && tar zxf geckodriver-*.tar.gz \
+#   && mv geckodriver /usr/bin/
 #################################
 
+
+#################################
+# Install Java
+#################################
+
+USER root
+RUN echo "deb http://security.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list
+RUN mkdir -p /usr/share/man/man1 && \
+    apt-get update -y && \
+    apt-get install -y openjdk-8-jdk
+
+RUN apt-get install unzip -y && \
+    apt-get autoremove -y
+#################################
+
+# install "ps" command
+RUN apt-get update && apt-get install -y procps
 
 # INSTALL REDIS
 RUN pecl install redis && docker-php-ext-enable redis
@@ -85,9 +105,9 @@ COPY conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # ENABLE XDEBUG BY UNCOMMENTING THE FOLLOWING LINE:
 # COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN adduser www-data sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-#RUN echo "www-data ALL=(ALL) ALL" > /etc/sudoers
+#RUN adduser www-data sudo
+#RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo "www-data ALL=(ALL) ALL" > /etc/sudoers
 
 WORKDIR /var/www/html
 USER www-data
@@ -95,9 +115,6 @@ RUN chown www-data:www-data /var/www/html
 
 RUN mkdir -p /var/www/html/var/log
 RUN chown www-data:www-data /var/www/html/var/log
-
-ENV PANTHER_NO_SANDBOX 1
-ENV PANTHER_CHROME_ARGUMENTS='--disable-dev-shm-usage --disable-gpu --disable-extensions --remote-debugging-port=9222'
 
 # Install composer from oficial image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
