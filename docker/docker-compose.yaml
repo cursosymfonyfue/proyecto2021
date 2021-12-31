@@ -30,7 +30,9 @@ services:
             - mariadb
         user: www-data
         # entrypoint: sh -c "./docker/php/init.sh"
-
+        tty: true
+        stdin_open: true
+        
     mariadb:
         image: mariadb:10.4
         container_name: csf_mariadb
