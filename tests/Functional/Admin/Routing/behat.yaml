@@ -4,4 +4,5 @@ default:
             paths: [ ./tests/Functional/Admin/Routing/Feature ]
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Common\Context\UtilsContext
                 - App\Tests\Functional\Admin\Routing\Context\AdminContext

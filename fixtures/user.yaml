@@ -8,7 +8,7 @@ App\Entity\User:
 
     author_user:
         username: 'sabin'
-        email: '<email()>'
+        email: 'sabin@sabin.sabin'
         password: <hashPassword('sabin')>
         roles: '[ROLE_COMMUNITY_MODERATOR]'
         isVerified: 1

@@ -13,20 +13,26 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('app_register') }}">Registration</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('app_login') }}">Log In</a>
-            </li>
             {% if app.user %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Admin
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ url('admin_post_index') }}">Post</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ url('admin_category_index') }}">Category</a>
-                </div>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('app_logout') }}">Log Out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('app_login') }}">Log In</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_COMMUNITY_MODERATOR') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('admin_post_index') }}">Post</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url('admin_category_index') }}">Category</a>
+                    </div>
+                </li>
             {% endif %}
             <li>
                 <div id="phrase-of-the-day-container" class="mt-2">
@@ -39,7 +45,7 @@
         </form>
     </div>
     <script>
-        jQuery(function($){
+        jQuery(function ($) {
             setTimeout(() => {
 
                 var phrases = [
@@ -49,7 +55,7 @@
                     'Enthusiasm moves the world',
                 ]
 
-                $('#phrase-of-the-day-container').html('<span class="phrase-of-the-day" style="font-size: 12px; color: green">Phrase of the day: ' + phrases[Math.floor( Math.random() * 4 )] + '</span>');
+                $('#phrase-of-the-day-container').html('<span class="phrase-of-the-day" style="font-size: 12px; color: green">Phrase of the day: ' + phrases[Math.floor(Math.random() * 4)] + '</span>');
             }, 1000);
         });
     </script>

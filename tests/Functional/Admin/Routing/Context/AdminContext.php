@@ -7,4 +7,5 @@ use Behat\MinkExtension\Context\RawMinkContext;
 
 final class AdminContext extends RawMinkContext implements Context
 {
+
 }

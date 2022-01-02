@@ -3,7 +3,7 @@ App\Entity\Post:
         title: 'System issues cause a single mother panic, I look deeper'
         body: >
             Anyway, I pressed Reset.
-        user: '@author_user'
+        user: '@admin_user'
         state: 1
         category: '@category_computers'
         availableAt: <((new DateTime())->add(DateInterval::createFromDateString('-1 days')))>
@@ -13,7 +13,7 @@ App\Entity\Post:
         body: >
             A random guy which loves to blame everyone came to support his point. I was like "yeah go for it, life's good" anyway. For unknown reasons an another guy went into corpse elimination, they quickly calmed down when I started explaining everything I knew. I'm a fun guy I swear.
             Restored disk didn't work, so I took a look on the BSOD error and, for once, I found an answer: wrong bios config for reading the disk. Had to change something I don't remember, so the old disk was fine. I claimed it has dead anyway, no one would care. It came back to life.
-        user: '@author_user'
+        user: '@admin_user'
         state: 1
         category: '@category_space_x'
         availableAt: <((new DateTime())->add(DateInterval::createFromDateString('+1 days')))>
@@ -21,7 +21,7 @@ App\Entity\Post:
     post_3:
         title: 'The posts!'
         body: 'This is anoter description'
-        user: '@author_user'
+        user: '@admin_user'
         state: 1
         category: '@category_space_x'
         availableAt: <((new DateTime())->add(DateInterval::createFromDateString('-2 days')))>
