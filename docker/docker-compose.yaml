@@ -8,6 +8,7 @@ services:
         container_name: csf_apache2
         ports:
             - '8000:80'
+            - '8001:81'
         volumes:
             - ./../docker/apache2/vhosts:/etc/apache2/sites-enabled
             - ./../:/var/www/html
@@ -17,7 +18,8 @@ services:
         networks:
             default:
                 aliases:
-                    - cursosymfonyfue.local
+                    - dev.cursosymfonyfue.local
+                    - test.cursosymfonyfue.local
 
     php:
         build: php/
@@ -32,7 +34,7 @@ services:
         # entrypoint: sh -c "./docker/php/init.sh"
         tty: true
         stdin_open: true
-        
+
     mariadb:
         image: mariadb:10.4
         container_name: csf_mariadb
@@ -94,6 +96,16 @@ services:
         ports:
             - 1025:1025 # smtp server
             - 8025:8025 # web ui
+
+    mailhog_test:
+        container_name: csf_mailhog_test
+        image: mailhog/mailhog
+        logging:
+            driver: 'none'  # disable saving logs
+        ports:
+            - 1026:1025 # smtp server
+            - 8026:8025 # web ui
+
 
     # ###################
     # TESTING SETUP.Begin

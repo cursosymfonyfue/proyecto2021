@@ -16,6 +16,9 @@ RUN a2enmod proxy_fcgi ssl rewrite proxy proxy_balancer proxy_http proxy_ajp
 RUN sed -i '/Global configuration/a \
 ServerName localhost \
 ' /etc/apache2/apache2.conf
-EXPOSE 80 443
+EXPOSE 80 81 443
+
+RUN echo "Listen 81" >> /etc/apache2/ports.conf
+
 RUN rm -f /run/apache2/apache2.pid
 CMD apachectl  -DFOREGROUND -e info

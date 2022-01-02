@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\Tests\Functional\Frontend\BehatMink\Context;
+namespace App\Tests\Functional\Frontend\BehatMink\HomePageLikes\Context;
 
 use Behat\Behat\Context\Context;
 use Behat\MinkExtension\Context\RawMinkContext;
 use PHPUnit\Framework\Assert as Assert;
 
-final class FrontendContext extends RawMinkContext implements Context
+final class HomePageLikesContext extends RawMinkContext implements Context
 {
     private int $firstPostNumberOfLikes = 0;
 

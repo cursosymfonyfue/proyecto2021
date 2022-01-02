@@ -48,3 +48,8 @@ default:
 
         # STEP DEFINITIONS ADICIONALES (CONTEXTOS) A LAS PROPORCIONADAS POR DEFECTO POR BEHAT
         Behatch\Extension: ~
+
+        # COMPROBACIÓN EMAILS ENTORNO TEST
+        rpkamp\Behat\MailhogExtension:
+            base_url: http://localhost:8026
+            purge_tag: email # optional, defaults to 'email'

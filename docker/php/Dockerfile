@@ -105,9 +105,8 @@ COPY conf/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # ENABLE XDEBUG BY UNCOMMENTING THE FOLLOWING LINE:
 # COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-#RUN adduser www-data sudo
-#RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN echo "www-data ALL=(ALL) ALL" > /etc/sudoers
+RUN adduser www-data sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 WORKDIR /var/www/html
 USER www-data

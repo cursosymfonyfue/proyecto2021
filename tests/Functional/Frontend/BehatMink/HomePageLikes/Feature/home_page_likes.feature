@@ -7,7 +7,7 @@ Feature: Check Home Page Likes Functionallity
   I should be able to click on the likes button and see the counter increased by one
 
   Scenario: Home Page Likes Functionallity
-    Given  I go to "http://cursosymfonyfue.local"
+    Given  I go to "http://test.cursosymfonyfue.local"
     And    I keep with the first post number of likes
     # Then   print last response
     Then   I click on "Likes"
