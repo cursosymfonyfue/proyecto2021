@@ -1,0 +1,14 @@
+App\Entity\User:
+    admin_user:
+        username: 'admin'
+        email: 'admin@admin.admin'
+        password: <hashPassword('admin')>
+        roles: '[ROLE_COMMUNITY_MODERATOR]'
+        isVerified: 1
+
+    author_user:
+        username: 'sabin'
+        email: 'sabin@sabin.sabin'
+        password: <hashPassword('sabin')>
+        roles: '[ROLE_COMMUNITY_MODERATOR]'
+        isVerified: 1

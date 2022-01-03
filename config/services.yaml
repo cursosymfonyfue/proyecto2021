@@ -67,3 +67,5 @@ services:
     App\Service\Recaptcha\RecaptchaCheckerService: "@app.recaptcha"
 
     App\DataFixtures\HashPasswordProvider: ~
+
+    Fidry\AliceDataFixtures\LoaderInterface: '@fidry_alice_data_fixtures.doctrine.persister_loader'

@@ -12,7 +12,7 @@
                                     <p class="pt-4">
                                         <strong>Autor:</strong> {{ post.user.username }} -
                                         <strong>Comentarios:</strong> {{ post.comments|length }}
-                                        <span class="add-like" data-id="{{ post.id }}"><strong>Likes:</strong><span class="counter">{{ post.likes }}</span></span>
+                                        <span class="add-like" data-id="{{ post.id }}"><strong>Likes:</strong><span class="counter" id="like-{{ loop.index }}">{{ post.likes }}</span></span>
                                     </p>
                                 </div>
                             </div>
