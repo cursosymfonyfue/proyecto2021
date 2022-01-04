@@ -17,6 +17,7 @@ services:
             $kernelLogDir: '%kernel.logs_dir%'
             $kernelEnvironment: '%kernel.environment%'
             $screenshotsPath: '%kernel.project_dir%/var/screenshots/test/'
+            $mailHogBaseUrl: 'http://mailhog_test:8025'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -69,3 +70,5 @@ services:
     App\DataFixtures\HashPasswordProvider: ~
 
     Fidry\AliceDataFixtures\LoaderInterface: '@fidry_alice_data_fixtures.doctrine.persister_loader'
+
+

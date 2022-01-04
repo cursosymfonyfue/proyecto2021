@@ -23,18 +23,24 @@ final class UtilsContext extends UtilsRawContext
     /** @When I navigate from a desktop browser */
     public function iNavigateFromADesktopBrowser()
     {
-        $this->getSession()->resizeWindow(1024, 768);
+        if ($this->supportsJavaScript()) {
+            $this->getSession()->resizeWindow(1024, 768);
+        }
     }
 
     /** @When I navigate from a mobile device */
     public function iNavigateFromAMobileDevice()
     {
-        $this->getSession()->resizeWindow(360, 480);
+        if ($this->supportsJavaScript()) {
+            $this->getSession()->resizeWindow(360, 480);
+        }
     }
 
     /** @When I navigate from a tablet device */
     public function iNavigateFromATabledDevice()
     {
-        $this->getSession()->resizeWindow(768, 1024);
+        if ($this->supportsJavaScript()) {
+            $this->getSession()->resizeWindow(768, 1024);
+        }
     }
 }

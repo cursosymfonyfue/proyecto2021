@@ -13,8 +13,13 @@ default:
                 - App\Tests\Functional\Frontend\BehatMink\HomePageLikes\Context\HomePageLikesContext
                 - App\Tests\Functional\Frontend\BehatMink\HomePageLikes\Context\InitializerContext
 
+        # Inicializamos la base de datos
+        # Incluimos Utilizades propias
         contact_form:
             paths: [ ./tests/Functional/Frontend/BehatMink/ContactForm/Feature ]
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Common\Context\UtilsContext
+                - App\Tests\Functional\Frontend\BehatMink\ContactForm\Context\InitializerContext
                 - App\Tests\Functional\Frontend\BehatMink\ContactForm\Context\ContactFormContext
+                - rpkamp\Behat\MailhogExtension\Context\MailhogContext

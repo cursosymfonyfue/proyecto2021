@@ -14,26 +14,6 @@ class UtilsRawContext extends RawMinkContext
         $this->screenshotsPath = $screenshotsPath;
     }
 
-    /** @throws \Exception */
-    protected function spins($closure, $seconds = 5, $fraction = 4): bool
-    {
-        $max = $seconds * $fraction;
-        $i = 1;
-        while ($i++ <= $max) {
-            if ($closure($this)) {
-                return true;
-            }
-            $this->getSession()->wait(1000 / $fraction);
-        }
-
-        $backtrace = debug_backtrace();
-        throw new \Exception(
-            sprintf("Timeout thrown by %s::%s()\n%s, line %s",
-                $backtrace[0]['class'], $backtrace[0]['function'],
-                $backtrace[0]['file'], $backtrace[0]['line']
-            )
-        );
-    }
 
     public function takeAScreenshot($prefix = 'screenshot')
     {

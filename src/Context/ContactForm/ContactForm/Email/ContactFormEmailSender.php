@@ -3,6 +3,7 @@
 namespace App\Context\ContactForm\ContactForm\Email;
 
 use App\Context\ContactForm\ContactForm\DTO\ContactFormDTO;
+use App\Entity\Contact;
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -17,15 +18,15 @@ final class ContactFormEmailSender
     }
 
     // Sólo se envía e-mail con texto plano
-    public function send(ContactFormDTO $contactFormDTO): void
+    public function send(Contact $contactEntity): void
     {
-        $subject = sprintf('Contacto "%s" recibido.', $contactFormDTO->getSubject());
+        $subject = sprintf('Contacto "%s" recibido.', $contactEntity->getSubject());
 
         $bodyEnHtml = sprintf('Full Name: %s %4$s Subject: %s %4$s Body: %s %4$s',
-            $contactFormDTO->getFullName(),
-            $contactFormDTO->getSubject(),
-            $contactFormDTO->getBody(),
-            PHP_EOL
+            $contactEntity->getFullName(),
+            $contactEntity->getSubject(),
+            $contactEntity->getBody(),
+            '<br>'
         );
 
         $email = new Email();

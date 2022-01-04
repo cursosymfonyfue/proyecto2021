@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .header {
+            background-color: #666;
+            color: white;
+        }
+
+        .even {
+            background-color: #ddd;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h4>LISTADO DE CONTACTOS</h4>
+            </div>
+        </div>
+        {{ include('common/_flash.html.twig') }}
+
+        <div class="row header">
+            <div class="col">Id</div>
+            <div class="col">Subject</div>
+            <div class="col">Body</div>
+            <div class="col">Created At</div>
+        </div>
+        {% for contact in contacts %}
+            <div class="row mt-2 {{ cycle(['odd', 'even'], loop.index0) }} contact-row">
+                <div class="col">{{ contact.id }}</div>
+                <div class="col">{{ contact.subject | slice(0, 5) }} ...</div>
+                <div class="col">{{ contact.body | slice (0, 5) }} ...</div>
+                <div class="col">{{ contact.createdAt | date('d-m-Y') }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -11,8 +11,9 @@ final class HomePageRoutingTest extends PantherTestCase
     {
         // Si no indicamos browser, tomará chrome por defecto
         $client = self::createPantherClient(['browser' => self::CHROME]);
+        // $client = self::createPantherClient(['browser' => self::FIREFOX]);
 
-        $client->request('GET', '/');
+        $client->request('GET', 'http://test.cursosymfonyfue.local:81/');
 
         // Si el selector .phrase-of-the-day no está visible, la siguiente línea fallará:
         // $this->assertSelectorTextContains('div', 'Phrase of the day:'); // se mira sobre el div, no sobre el hijo (span)
