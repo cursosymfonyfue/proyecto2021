@@ -12,7 +12,7 @@ final class HomePageRoutingTest extends WebTestCase
     public function testHomePage(): void
     {
         $client = self::createClient();
-        $client->request('GET', 'http://localhost:8000');
+        $client->request('GET', 'http://localhost:8001');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Bienvenid@s al Curso de Symfony Fue');
     }
