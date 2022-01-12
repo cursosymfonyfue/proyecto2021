@@ -5,6 +5,7 @@ default:
             paths: [ ./tests/Functional/Frontend/BehatMink/Routing/Feature ]
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
+                - App\Tests\Common\Context\UtilsContext
 
         home_page_likes:
             paths: [ ./tests/Functional/Frontend/BehatMink/HomePageLikes/Feature ]

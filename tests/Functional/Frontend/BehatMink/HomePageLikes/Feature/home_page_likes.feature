@@ -8,8 +8,8 @@ Feature: Check Home Page Likes Functionallity
 
   Scenario: Home Page Likes Functionallity
     Given  I go to "http://test.cursosymfonyfue.local:81"
-    # Then   I click on "Likes"
-    # Then   I click on the first Likes counter
+    #When   I click on "Likes:"
+    #When   I click on the first Likes counter
     When   I click on the "first" like
     Then   The number of likes for the "first" post should be 1
     # And    I take a screenshot "number-of-likes-for-the-first-post-should-be-1"

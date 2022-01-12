@@ -14,7 +14,6 @@ class UtilsRawContext extends RawMinkContext
         $this->screenshotsPath = $screenshotsPath;
     }
 
-
     public function takeAScreenshot($prefix = 'screenshot')
     {
         if ($this->supportsJavaScript()) {

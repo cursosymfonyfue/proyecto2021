@@ -51,8 +51,8 @@ final class HomePageLikesContext extends RawMinkContext implements Context
      */
     public function iClickOn($text)
     {
-        $node = $this->getSession()->getPage()->find('named', ['content', $text]);
-        // $likes = $this->getSession()->getParent()->find('xpath', sprintf('//*[text()[contains(.,"%s")]]', $text));
+        // $node = $this->getSession()->getPage()->find('named', ['content', $text]);
+        $node = $this->getSession()->getPage()->find('xpath', sprintf('//*[text()[contains(.,"%s")]]', $text));
         $node->click();
     }
 

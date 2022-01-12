@@ -38,6 +38,6 @@ class PostRepository extends ServiceEntityRepository
             return;
         }
 
-        $this->getEntityManager()->getConnection()->executeQuery('UPDATE post SET likes=likes+1');
+        $this->getEntityManager()->getConnection()->executeQuery('UPDATE post SET likes=likes+1 where id = :id', ['id' => $id]);
     }
 }
