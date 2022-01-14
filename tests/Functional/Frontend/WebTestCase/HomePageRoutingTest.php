@@ -15,5 +15,8 @@ final class HomePageRoutingTest extends WebTestCase
         $client->request('GET', 'http://localhost:8001');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Bienvenid@s al Curso de Symfony Fue');
+
+        // Para ver el contenido obtenido en la llamada request:
+        // echo $client->getResponse()->getContent();
     }
 }

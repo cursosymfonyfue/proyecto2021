@@ -4,7 +4,8 @@ namespace App\Tests\Functional\Frontend\Panther;
 
 use Symfony\Component\Panther\PantherTestCase;
 
-// ./vendor/phpunit/phpunit/phpunit tests/Functional/Frontend/Panther/HomePageRoutingTest.php
+// DOC: https://github.com/symfony/panther
+// SYMFONY_DEPRECATIONS_HELPER=disabled XDEBUG_MODE=off ./vendor/phpunit/phpunit/phpunit tests/Functional/Frontend/Panther/HomePageRoutingTest.php
 final class HomePageRoutingTest extends PantherTestCase
 {
     public function testHomePage(): void
@@ -15,11 +16,10 @@ final class HomePageRoutingTest extends PantherTestCase
 
         $client->request('GET', 'http://test.cursosymfonyfue.local:81/');
 
-        // Si el selector .phrase-of-the-day no está visible, la siguiente línea fallará:
-        // $this->assertSelectorTextContains('div', 'Phrase of the day:'); // se mira sobre el div, no sobre el hijo (span)
-
         $this->assertSelectorTextContains('h1', 'Bienvenid@s al Curso de Symfony Fue');
 
+        // Si el selector .phrase-of-the-day no está visible, la siguiente línea fallará:
+        // $this->assertSelectorTextContains('div', 'Phrase of the day:'); // se mira sobre el div, no sobre el hijo (span)
         $client->waitForVisibility('.phrase-of-the-day');
         $this->assertSelectorTextContains('div', 'Phrase of the day:'); // se mira sobre el div, no sobre el hijo (span)
 

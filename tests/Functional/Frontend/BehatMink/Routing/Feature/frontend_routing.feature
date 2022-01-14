@@ -1,9 +1,9 @@
 # ./vendor/behat/behat/bin/behat --config=tests/behat.yaml --tags=FRONTEND_ROUTING
 @FRONTEND_ROUTING
-Feature: Check Backend Routing
-  In order to navigate throughout the admin sections
+Feature: Check Frontend Routing
+  In order to navigate throughout the frontend website
   As a community moderator
-  I should be able to navigate throughout all the admin sections properly
+  I should be able to navigate throughout all the public sections properly
 
   Scenario: Home Page is accessible
     Given I go to "http://test.cursosymfonyfue.local:81/"
