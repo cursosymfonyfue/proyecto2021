@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Admin\Category;
 
@@ -14,11 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 final class CategoryNewController extends AbstractController
 {
     private AdminCategoryFormCreator $adminCategoryFormCreator;
-    private AdminCategoryHandler     $adminCategoryHandler;
+    private AdminCategoryHandler $adminCategoryHandler;
 
-    public function __construct(AdminCategoryFormCreator $adminCategoryFormCreator,
-                                AdminCategoryHandler     $adminCategoryHandler)
-    {
+    public function __construct(
+        AdminCategoryFormCreator $adminCategoryFormCreator,
+        AdminCategoryHandler $adminCategoryHandler
+    ) {
         $this->adminCategoryFormCreator = $adminCategoryFormCreator;
         $this->adminCategoryHandler = $adminCategoryHandler;
     }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Util\RelevanceCalculator;
 
@@ -7,7 +9,7 @@ use App\Util\RelevanceCalculator\Helper\CoefficientCalculator;
 
 final class RelevanceCalculator
 {
-    const MAX_SEQUENCES = 20;
+    private const MAX_SEQUENCES = 20;
 
     public static function calculate(int $visits, int $likes, int $days): float
     {

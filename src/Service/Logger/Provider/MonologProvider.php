@@ -15,8 +15,7 @@ final class MonologProvider implements LoggerInterface
 
     public function __construct(
         \Psr\Log\LoggerInterface $monolog
-    )
-    {
+    ) {
         $this->monolog = $monolog;
     }
 

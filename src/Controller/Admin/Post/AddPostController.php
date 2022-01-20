@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Admin\Post;
 
@@ -18,18 +20,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class AddPostController extends AbstractController
 {
-    private PostPersister            $postPersister;
-    private EmailSender              $emailSender;
-    private ImageUploader            $imageUploader;
+    private PostPersister $postPersister;
+    private EmailSender $emailSender;
+    private ImageUploader $imageUploader;
     private LoggerUserEntityResolver $loggerUserEntityResolver;
     private LoggerService $loggerService;
 
-    public function __construct(PostPersister            $postPersister,
-                                EmailSender              $emailSender,
-                                ImageUploader            $imageUploader,
-                                LoggerUserEntityResolver $loggerUserEntityResolver,
-                                LoggerService $loggerService)
-    {
+    public function __construct(
+        PostPersister $postPersister,
+        EmailSender $emailSender,
+        ImageUploader $imageUploader,
+        LoggerUserEntityResolver $loggerUserEntityResolver,
+        LoggerService $loggerService
+    ) {
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
         $this->imageUploader = $imageUploader;

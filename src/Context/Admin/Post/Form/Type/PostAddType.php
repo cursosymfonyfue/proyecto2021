@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Post\Form\Type;
 
@@ -27,16 +29,17 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PostAddType extends AbstractType
 {
-    private PostDataMapper         $postDataMapper;
-    private StateDataTransformer   $stateDataTransformer;
-    private CategoryRepository     $categoryRepository;
+    private PostDataMapper $postDataMapper;
+    private StateDataTransformer $stateDataTransformer;
+    private CategoryRepository $categoryRepository;
     private NullToBlankTransformer $nullToBlankTransformer;
 
-    public function __construct(PostDataMapper         $postDataMapper,
-                                StateDataTransformer   $stateDataTransformer,
-                                CategoryRepository     $categoryRepository,
-                                NullToBlankTransformer $nullToBlankTransformer)
-    {
+    public function __construct(
+        PostDataMapper $postDataMapper,
+        StateDataTransformer $stateDataTransformer,
+        CategoryRepository $categoryRepository,
+        NullToBlankTransformer $nullToBlankTransformer
+    ) {
         $this->postDataMapper = $postDataMapper;
         $this->stateDataTransformer = $stateDataTransformer;
         $this->categoryRepository = $categoryRepository;
@@ -67,8 +70,7 @@ class PostAddType extends AbstractType
                 'choices' => $states,
                 'multiple' => false,
                 'expanded' => true,
-            ]
-        );
+            ]);
 
         $builder->add('availability_day', TextType::class, ['mapped' => false]);
         $builder->add('availability_month', ChoiceType::class, ['mapped' => false]);
@@ -77,15 +79,20 @@ class PostAddType extends AbstractType
         $builder->add('image', HiddenType::class);
         $builder->add('image_file', FileType::class, ['mapped' => false]);
 
-        $builder->add('category', EntityType::class,
+        $builder->add(
+            'category',
+            EntityType::class,
             [
                 'class' => Category::class,
                 'choices' => $this->categoryRepository->findAll(),
                 'choice_label' => 'title',
                 'placeholder' => '',
-            ]);
+            ]
+        );
 
-        $builder->add('recaptchaToken', HiddenType::class,
+        $builder->add(
+            'recaptchaToken',
+            HiddenType::class,
             [
                     'mapped' => false,
                     'constraints' => new Recaptcha3()

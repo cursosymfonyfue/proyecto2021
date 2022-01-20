@@ -16,8 +16,7 @@ final class FileProvider implements LoggerInterface
     public function __construct(
         string $kernelLogDir,
         string $kernelEnvironment
-    )
-    {
+    ) {
         $this->kernelLogDir = $kernelLogDir;
         $this->kernelEnvironment = $kernelEnvironment;
     }
@@ -33,10 +32,8 @@ final class FileProvider implements LoggerInterface
         try {
             $filesystem = new Filesystem();
 
-            $filesystem->appendToFile($file, $line. "\n");
-        }
-        catch(Exception $e)
-        {
+            $filesystem->appendToFile($file, $line . "\n");
+        } catch (Exception $e) {
             throw LoggerException::fromWrittingInFile($file);
         }
     }

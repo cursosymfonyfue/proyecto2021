@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\ContactForm;
 
@@ -18,14 +20,14 @@ final class ContactForm03Controller extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           $this->persist($form->getData());
-           return $this->redirectToRoute('contact_form_ok');
+            $this->persist($form->getData());
+            return $this->redirectToRoute('contact_form_ok');
         }
 
         return $this->render('contact_form/contact_form_03/contact_form.html.twig', ['form' => $form->createView()]);
     }
 
-    private function persist(array $data) : void
+    private function persist(array $data): void
     {
         if (!is_dir($dir = __DIR__ . '/../../../tmp')) {
             mkdir($dir, 0755);

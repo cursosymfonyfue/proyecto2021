@@ -15,7 +15,7 @@ class NotAtCharacterValidator extends ConstraintValidator
             return;
         }
 
-        if (false === strpos($value, '@')){
+        if (false === strpos($value, '@')) {
             return;
         }
 

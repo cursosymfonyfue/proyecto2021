@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Util\RelevanceCalculatorSpaghettiCode;
 
 final class RelevanceCalculatorSpaghettiCode
 {
-    const MAX_SEQUENCES = 100;
+    private const MAX_SEQUENCES = 100;
 
     public static function calculate(int $visits, int $likes, int $days): float
     {

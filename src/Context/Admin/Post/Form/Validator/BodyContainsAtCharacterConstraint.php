@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Post\Form\Validator;
 
@@ -16,6 +18,6 @@ final class BodyContainsAtCharacterConstraint extends Constraint
 
     public function validatedBy()
     {
-        return get_class($this).'Validator';
+        return get_class($this) . 'Validator';
     }
 }

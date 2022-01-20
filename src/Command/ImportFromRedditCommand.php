@@ -17,7 +17,7 @@ class ImportFromRedditCommand extends Command
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        UserRepository  $userRepository,
+        UserRepository $userRepository,
         EntityManagerInterface $entityManager
     ) {
         $this->userRepository = $userRepository;

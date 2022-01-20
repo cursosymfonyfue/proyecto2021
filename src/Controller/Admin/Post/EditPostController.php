@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\Admin\Post;
 
@@ -15,20 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class EditPostController extends AbstractController
 {
-    private PostFinder    $postFinder;
+    private PostFinder $postFinder;
     private PostPersister $postPersister;
-    private EmailSender   $emailSender;
+    private EmailSender $emailSender;
     private ImageUploader $imageUploader;
     private LoggerService $loggerService;
 
     public function __construct(
         LoggerService $loggerService,
-        PostFinder    $postFinder,
+        PostFinder $postFinder,
         PostPersister $postPersister,
-        EmailSender   $emailSender,
+        EmailSender $emailSender,
         ImageUploader $imageUploader
-    )
-    {
+    ) {
         $this->postFinder = $postFinder;
         $this->postPersister = $postPersister;
         $this->emailSender = $emailSender;
@@ -62,7 +63,7 @@ final class EditPostController extends AbstractController
 
             $this->addFlash('success', 'Publicación editada satisfactoriamente');
 
-            $this->loggerService->log('Edit post: '. $id);
+            $this->loggerService->log('Edit post: ' . $id);
 
             return $this->redirectToRoute('admin_post_index');
         }

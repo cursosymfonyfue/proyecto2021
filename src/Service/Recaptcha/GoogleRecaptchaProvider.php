@@ -49,7 +49,5 @@ class GoogleRecaptchaProvider extends RecaptchaProvider
         $response = $this->recaptcha->verify($captchaValue, $ip);
 
         return $response->isSuccess();
-
     }
-
 }

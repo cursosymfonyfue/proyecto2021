@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Post\Repository;
 
@@ -20,8 +22,8 @@ final class PostFinder
         $query = $this->em
             ->getRepository(Post::class)
             ->createQueryBuilder('post')
-            ->innerJoin('post.user','user')
-            ->leftJoin('post.category','category')
+            ->innerJoin('post.user', 'user')
+            ->leftJoin('post.category', 'category')
             ->addSelect('user')
             ->addSelect('category')
             ->getQuery();

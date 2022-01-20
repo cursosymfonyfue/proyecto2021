@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Post\Form\DataMapper;
 
@@ -46,7 +48,8 @@ final class PostDataMapper extends DataMapper implements DataMapperInterface
         parent::mapFormsToData($forms, $viewData);
 
         // MAPEO DE FECHA DE PUBLICACIÓN
-        $dateAsISOString = sprintf('%s-%s-%s 00:00:00',
+        $dateAsISOString = sprintf(
+            '%s-%s-%s 00:00:00',
             $forms['availability_year']->getData(),
             $forms['availability_month']->getData(),
             $forms['availability_day']->getData()
@@ -60,7 +63,8 @@ final class PostDataMapper extends DataMapper implements DataMapperInterface
             $name = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
             $ext = $imagenFile->guessExtension();
 
-            $imageName = sprintf('%s-%s.%s',
+            $imageName = sprintf(
+                '%s-%s.%s',
                 $name,
                 $viewData->getId(),
                 $ext

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -16,7 +18,7 @@ final class Email02RichFromTemplateCommand extends Command
 {
     use ModelBuilderTrait;
 
-    protected static        $defaultName = 'csf:email-02';
+    protected static $defaultName = 'csf:email-02';
     private MailerInterface $mailer;
 
     public function __construct(MailerInterface $mailer)

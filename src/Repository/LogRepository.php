@@ -39,5 +39,4 @@ class LogRepository extends ServiceEntityRepository
             throw $e;
         }
     }
-
 }

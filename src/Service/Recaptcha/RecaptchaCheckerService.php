@@ -29,8 +29,8 @@ class RecaptchaCheckerService
      */
     public function __construct(
         RecaptchaProvider $recaptchaProvider,
-        bool $enabled)
-    {
+        bool $enabled
+    ) {
         $this->recaptchaProvider = $recaptchaProvider;
         $this->enabled = $enabled;
     }

@@ -47,5 +47,4 @@ class Log
     {
         return $this->content;
     }
-
 }
