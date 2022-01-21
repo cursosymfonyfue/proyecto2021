@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -15,9 +17,9 @@ final class Email04AttachmentCommand extends Command
 {
     use ModelBuilderTrait;
 
-    protected static        $defaultName = 'csf:email-04';
+    protected static $defaultName = 'csf:email-04';
     private MailerInterface $mailer;
-    private string          $kernelProjectDir;
+    private string $kernelProjectDir;
 
     public function __construct(MailerInterface $mailer, string $kernelProjectDir)
     {

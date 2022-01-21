@@ -21,8 +21,8 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function delete(int $id): void
     {
-        $categoryEntity = $this->em->getReference(Category::class, $id);
-        $this->em->remove($categoryEntity);
-        $this->em->flush();
+        $categoryEntity = $this->_em->getReference(Category::class, $id);
+        $this->_em->remove($categoryEntity);
+        $this->_em->flush();
     }
 }

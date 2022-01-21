@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\ContactForm;
 
@@ -14,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class ContactFormController extends AbstractController
 {
     private ContactFormEmailSender $contactFormEmailSender;
-    private ContactRepository      $contactRepository;
+    private ContactRepository $contactRepository;
 
     public function __construct(ContactFormEmailSender $contactFormEmailSender, ContactRepository $contactRepository)
     {
@@ -33,7 +35,6 @@ final class ContactFormController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             // Estas líneas deberían ir encapsuladas en un handler
             // La misma lógica podría ser reaprovechado en una api por ejemplo y evitaríamos duplicidad de código
             $this->contactRepository->save($contactEntity);

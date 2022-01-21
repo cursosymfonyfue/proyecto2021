@@ -15,8 +15,7 @@ final class DatabaseProvider implements LoggerInterface
 
     public function __construct(
         LogRepository $logRepository
-    )
-    {
+    ) {
         $this->logRepository = $logRepository;
     }
 
@@ -31,9 +30,7 @@ final class DatabaseProvider implements LoggerInterface
             $log = new Log($line);
 
             $this->logRepository->add($log);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             throw LoggerException::fromPersist($line);
         }
     }

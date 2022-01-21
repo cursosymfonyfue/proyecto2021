@@ -121,5 +121,5 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 EXPOSE 9000
 
 #ENTRYPOINT ["sh", "./docker/php/init.sh"]
-# CMD ["./docker/php/init.sh"]
+ CMD ["./docker/php/init.sh"]
 ##################################################################################################################

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Post\TextRepository;
 
@@ -33,7 +35,7 @@ final class PostPersister
         ];
 
         $file = $dir . '/post.txt';
-        file_put_contents($file, (is_file($file) ? PHP_EOL : '') . trim(json_encode($dto)) , FILE_APPEND);
+        file_put_contents($file, (is_file($file) ? PHP_EOL : '') . trim(json_encode($dto)), FILE_APPEND);
     }
 
     public function delete(int $id): void

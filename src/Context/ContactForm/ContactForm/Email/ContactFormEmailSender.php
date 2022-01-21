@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\ContactForm\ContactForm\Email;
 
@@ -22,7 +24,8 @@ final class ContactFormEmailSender
     {
         $subject = sprintf('Contacto "%s" recibido.', $contactEntity->getSubject());
 
-        $bodyEnHtml = sprintf('Full Name: %s %4$s Subject: %s %4$s Body: %s %4$s',
+        $bodyEnHtml = sprintf(
+            'Full Name: %s %4$s Subject: %s %4$s Body: %s %4$s',
             $contactEntity->getFullName(),
             $contactEntity->getSubject(),
             $contactEntity->getBody(),

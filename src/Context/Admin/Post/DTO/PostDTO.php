@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Post\DTO;
 
@@ -6,14 +8,14 @@ use DateTime;
 
 final class PostDTO
 {
-    const STATES = ['active' => 1, 'disabled' => 0];
+    private const STATES = ['active' => 1, 'disabled' => 0];
 
-    private int        $id;
-    private string     $title;
-    private string     $body;
-    private ?int       $state;
+    private int $id;
+    private string $title;
+    private string $body;
+    private ?int $state;
     private ?\DateTime $availableAt;
-    private ?string    $image;
+    private ?string $image;
 
     // Named Constructor
     public static function create(): self

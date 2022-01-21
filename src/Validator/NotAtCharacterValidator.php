@@ -7,15 +7,14 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class NotAtCharacterValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
-    {
+    public function validate($value, Constraint $constraint): void {
         /* @var $constraint \App\Validator\NotAtCharacter */
 
         if (null === $value || '' === $value) {
             return;
         }
-
-        if (false === strpos($value, '@')){
+   
+        if (false === strpos($value, '@')) {
             return;
         }
 

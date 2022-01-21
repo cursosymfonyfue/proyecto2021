@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Controller\ContactForm;
 
@@ -23,7 +25,7 @@ final class ContactForm02Controller extends AbstractController
         // IMPORTANTE: MAPEO DE LA REQUEST A DATA
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-           echo "SUBMITTED AND VALID";
+            echo "SUBMITTED AND VALID";
         }
 
         return $this->render('contact_form/contact_form_02/contact_form.html.twig', ['form' => $form->createView()]);

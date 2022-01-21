@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -13,7 +15,7 @@ use Symfony\Component\Mime\Email;
 // bin/console csf:email-01
 final class Email01RichCommand extends Command
 {
-    protected static        $defaultName = 'csf:email-01';
+    protected static $defaultName = 'csf:email-01';
     private MailerInterface $mailer;
 
     public function __construct(MailerInterface $mailer)

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Context\Admin\Category;
 
@@ -14,7 +16,7 @@ final class AdminCategoryHandler
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function handle(Category $category) : void
+    public function handle(Category $category): void
     {
         $this->categoryRepository->save($category);
         // @todo enviar e-mail

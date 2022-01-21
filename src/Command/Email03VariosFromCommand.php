@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -19,7 +21,7 @@ final class Email03VariosFromCommand extends Command
 {
     use ModelBuilderTrait;
 
-    protected static        $defaultName = 'csf:email-03';
+    protected static $defaultName = 'csf:email-03';
     private MailerInterface $mailer;
 
     public function __construct(MailerInterface $mailer)

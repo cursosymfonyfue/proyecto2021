@@ -50,11 +50,9 @@ final class Recaptcha3Validator extends ConstraintValidator
 
         $isValid = $this->recaptchaService->checkRecaptcha($value);
 
-        if(!$isValid)
-        {
+        if (!$isValid) {
             $this->buildViolation($constraint->messageMissingValue, $value);
         }
-
     }
 
     private function buildViolation(string $message, string $value, string $errorCodes = ''): void
